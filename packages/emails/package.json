@@ -1,0 +1,19 @@
+{
+  "name": "@feedelity/emails",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "mjml2html": "node mjml2html",
+    "build": "pnpm mjml2html && tsc --build tsconfig.json"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.42",
+    "typescript": "^4.4.0"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.7",
+    "mjml": "^4.12.0"
+  }
+}

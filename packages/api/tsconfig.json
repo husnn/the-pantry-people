@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist"
+  },
+  "references": [
+    {
+      "path": "../shared"
+    },
+    {
+      "path": "../core"
+    },
+    {
+      "path": "../postgres"
+    }
+  ],
+  "include": ["src/**/*", "types.d.ts"],
+  "exclude": [
+    "src/**/*.spec.ts"
+  ]
+}

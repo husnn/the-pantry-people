@@ -1,0 +1,12 @@
+server {
+  listen 80 default_server;
+  listen [::]:80 default_server;
+
+  location / {
+    proxy_pass http://web:${WEB_PORT};
+  }
+
+  location /api/ {
+    proxy_pass http://api:${API_PORT}/;
+  }
+}

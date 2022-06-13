@@ -1,0 +1,34 @@
+{
+  "name": "feedelity",
+  "version": "0.0.1",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "eslint:check": "eslint --ext .js,.jsx,.ts,.tsx .",
+    "eslint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
+    "build": "tsc --build tsconfig.build.json",
+    "watch": "pnpm build --watch",
+    "emails": "pnpm --filter @feedelity/emails",
+    "api": "pnpm --filter @feedelity/api",
+    "web": "pnpm --filter @feedelity/web"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.28.0",
+    "@typescript-eslint/parser": "^5.28.0",
+    "concurrently": "^7.2.1",
+    "eslint": "^8.17.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-import-resolver-node": "^0.3.6",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "^7.30.0",
+    "prettier": "^2.6.2",
+    "typescript": "^4.7.3"
+  },
+  "packageManager": "yarn@3.2.1"
+}

@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./packages",
+    "paths": {
+      "@feedelity/shared": ["./shared/src"],
+      "@feedelity/emails": ["./emails/src"],
+      "@feedelity/core": ["./core/src"],
+      "@feedelity/postgres": ["./postgres/src"]
+    }
+  }
+}

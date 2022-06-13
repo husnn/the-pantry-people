@@ -1,0 +1,18 @@
+.git
+.gitignore
+
+.vscode
+
+node_modules
+npm-debug.log
+
+Dockerfile*
+docker-compose*
+
+# dotenv environment variables file
+.env
+.env*.local
+*.env.*
+
+# typescript
+*.tsbuildinfo

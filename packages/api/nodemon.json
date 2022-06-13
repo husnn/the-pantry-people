@@ -1,0 +1,12 @@
+{
+  "verbose": true,
+  "quiet": true,
+  "watch": [
+    "dist"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js,ts,json",
+  "delay": 100
+}

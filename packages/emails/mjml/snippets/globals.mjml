@@ -1,0 +1,24 @@
+<mj-attributes>
+  <mj-class
+    name="body"
+    padding="20px 0 50px"
+    background-color="#FBFBF8"
+  />
+  <mj-class
+    name="btn-primary"
+    background-color="#0090FF"
+    color="white"
+    font-size="14px"
+    font-weight="500"
+    border-radius="20px"
+  />
+  <mj-class
+    name="heading"
+    font-size="24px"
+    font-weight="600"
+  />
+  <mj-class
+    name="text-body"
+    font-size="14px"
+  />
+</mj-attributes>

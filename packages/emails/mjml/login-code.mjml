@@ -1,0 +1,21 @@
+<mjml>
+  <mj-head>
+    <mj-include path="./snippets/globals.mjml" />
+  </mj-head>
+  <mj-body>
+    <mj-include path="./snippets/top.mjml" />
+    <mj-section mj-class="body">
+      <mj-column>
+        <mj-text mj-class="text-body">
+          Use the code below to finish signing in:
+        </mj-text>
+        <mj-spacer height="10px" />
+
+        <mj-text mj-class="heading">
+          {{code}}
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-include path="./snippets/footer.mjml" />
+  </mj-body>
+</mjml>

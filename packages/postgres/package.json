@@ -1,0 +1,24 @@
+{
+  "name": "@feedelity/postgres",
+  "main": "dist/index.js",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "db:gen": "pnpm build && typeorm migration:generate -n",
+    "db:migrate": "pnpm build && typeorm migration:run",
+    "db:rollback": "typeorm migration:revert",
+    "build": "tsc --build tsconfig.json"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.42",
+    "typescript": "^4.7.3"
+  },
+  "dependencies": {
+    "@feedelity/core": "workspace:^0.0.1",
+    "@feedelity/shared": "workspace:^0.0.1",
+    "nanoid": "^4.0.0",
+    "pg": "^8.7.3",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.6"
+  }
+}
