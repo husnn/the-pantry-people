@@ -8,7 +8,7 @@
   "scripts": {
     "eslint:check": "eslint --ext .js,.jsx,.ts,.tsx .",
     "eslint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
-    "build": "tsc --build tsconfig.build.json && pnpm web build",
+    "build": "tsc --build tsconfig.build.json",
     "watch": "pnpm build --watch",
     "emails": "pnpm --filter @feedelity/emails",
     "api": "pnpm --filter @feedelity/api",

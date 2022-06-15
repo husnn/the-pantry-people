@@ -8,7 +8,7 @@
     "dev": "nodemon -r dotenv/config dist/index.js",
     "build": "tsc --build tsconfig.json",
     "test": "DOTENV_CONFIG_PATH=.env.test jest --setupFiles=dotenv/config",
-    "serve": "node dist/index.js"
+    "start": "node dist/index.js"
   },
   "devDependencies": {
     "@types/app-root-path": "^1.2.4",

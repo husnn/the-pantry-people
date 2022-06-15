@@ -22,7 +22,7 @@ services:
 
   api:
     build: .
-    command: npm run api serve
+    command: npm run api start
     environment:
       NODE_ENV: staging
       PORT: 5000
@@ -38,8 +38,7 @@ services:
 
   web:
     build: .
-    command: npm run web start
-    env_file: ./packages/web/.env
+    command: npm run web serve
     environment:
       NEXT_PUBLIC_API_URL: http://localhost/api/v1
     restart: on-failure

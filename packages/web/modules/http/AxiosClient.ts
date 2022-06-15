@@ -5,11 +5,9 @@ import HttpClient from './HttpClient';
 export default class AxiosClient extends HttpClient {
   private axios: AxiosInstance;
 
-  constructor() {
+  constructor(url?: string) {
     super();
-    this.axios = axios.create({
-      baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/v1'
-    });
+    this.axios = axios.create({ baseURL: url });
   }
 
   async request<U extends Response | null = Response>(
