@@ -1,5 +1,5 @@
 {
-  "name": "feedelity",
+  "name": "The Pantry People",
   "version": "0.0.1",
   "private": true,
   "workspaces": [
@@ -10,9 +10,9 @@
     "eslint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
     "build": "tsc --build tsconfig.build.json",
     "watch": "pnpm build --watch",
-    "emails": "pnpm --filter @feedelity/emails",
-    "api": "pnpm --filter @feedelity/api",
-    "web": "pnpm --filter @feedelity/web",
+    "emails": "pnpm --filter @tpp/emails",
+    "api": "pnpm --filter @tpp/api",
+    "web": "pnpm --filter @tpp/web",
     "dev": "concurrently \"pnpm web dev\" \"pnpm api dev\""
   },
   "devDependencies": {

@@ -1,4 +1,4 @@
-import { CurrentUserDTO } from '@feedelity/shared';
+import { CurrentUserDTO } from '@tpp/shared';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
 import { getCurrentUser, saveAuthExpiry, shouldUnauthenticate } from './utils';

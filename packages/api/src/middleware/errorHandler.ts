@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response as ExpressResponse } from 'express';
 import { HttpError, HttpResponse } from '../http';
 
-import { isDev, Response } from '@feedelity/shared';
+import { isDev, Response } from '@tpp/shared';
 import logger from '../logger';
 
 export interface ErrorResponse extends Response {

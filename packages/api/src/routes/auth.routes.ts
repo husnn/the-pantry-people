@@ -1,4 +1,4 @@
-import { isValidPassword } from '@feedelity/shared';
+import { isValidPassword } from '@tpp/shared';
 import { NextFunction, Request, Response, Router } from 'express';
 import { check } from 'express-validator';
 import AuthController from '../controllers/AuthController';

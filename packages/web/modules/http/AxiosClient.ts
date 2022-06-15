@@ -1,4 +1,4 @@
-import { Request, Response } from '@feedelity/shared';
+import { Request, Response } from '@tpp/shared';
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import HttpClient from './HttpClient';
 

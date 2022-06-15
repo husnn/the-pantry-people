@@ -1,4 +1,4 @@
-import { Response } from '@feedelity/shared';
+import { Response } from '@tpp/shared';
 import { Response as ExpressResponse } from 'express';
 
 export class HttpResponse<U extends Response> {

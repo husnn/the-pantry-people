@@ -1,4 +1,4 @@
-import { CurrentUserDTO } from '@feedelity/shared';
+import { CurrentUserDTO } from '@tpp/shared';
 
 const AUTH_EXPIRY = 'auth_expiry';
 const CURRENT_USER = 'user';

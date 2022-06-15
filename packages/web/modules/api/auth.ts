@@ -1,4 +1,4 @@
-import { LoginRequest, LoginResponse } from '@feedelity/shared';
+import { LoginRequest, LoginResponse } from '@tpp/shared';
 import { ApiClient } from '../http';
 
 export const login = (email: string, password: string) =>

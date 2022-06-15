@@ -1,5 +1,5 @@
-import { Repository as IRepository } from '@feedelity/core';
-import { ID } from '@feedelity/shared';
+import { Repository as IRepository } from '@tpp/core';
+import { ID } from '@tpp/shared';
 import { EntitySchema, In, Repository as PostgresRepository } from 'typeorm';
 import { datasource } from '..';
 

@@ -1,4 +1,4 @@
-import { Request, Response } from '@feedelity/shared';
+import { Request, Response } from '@tpp/shared';
 
 export default abstract class HttpClient {
   abstract request<

@@ -1,5 +1,5 @@
 {
-  "name": "@feedelity/postgres",
+  "name": "@tpp/postgres",
   "main": "dist/index.js",
   "version": "0.0.1",
   "private": true,
@@ -14,8 +14,8 @@
     "typescript": "^4.7.3"
   },
   "dependencies": {
-    "@feedelity/core": "workspace:^0.0.1",
-    "@feedelity/shared": "workspace:^0.0.1",
+    "@tpp/core": "workspace:^0.0.1",
+    "@tpp/shared": "workspace:^0.0.1",
     "nanoid": "^4.0.0",
     "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",

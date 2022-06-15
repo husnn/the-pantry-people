@@ -1,6 +1,11 @@
-<mj-section background-color="#FBFBF8"
-  padding="20px 0" border-radius="15px 15px 0 0">
+<mj-section
+  background-color="#FBFBF8"
+  padding="20px 0"
+  border-radius="15px 15px 0 0"
+>
   <mj-column>
-    <mj-text font-size="45px"><a href="https://feedelity.co" style="text-decoration: none;">Feedelity</a></mj-text>
+    <mj-text font-size="45px"
+      ><a href="https://thepantrypeople.com" style="text-decoration: none">The Pantry People</a></mj-text
+    >
   </mj-column>
 </mj-section>

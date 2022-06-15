@@ -1,5 +1,5 @@
 {
-  "name": "@feedelity/web",
+  "name": "@tpp/web",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -24,7 +24,7 @@
     "@emotion/react": "^11.9.3",
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.9.3",
-    "@feedelity/shared": "workspace:^0.0.1",
+    "@tpp/shared": "workspace:^0.0.1",
     "@fontsource/roboto": "^4.5.7",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.8.4",

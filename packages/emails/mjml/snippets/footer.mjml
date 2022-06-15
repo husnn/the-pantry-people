@@ -1,8 +1,11 @@
-<mj-section background-color="#1a1a1a"
-  padding="20px" border-radius="0 0 15px 15px">
+<mj-section
+  background-color="#1a1a1a"
+  padding="20px"
+  border-radius="0 0 15px 15px"
+>
   <mj-column>
     <mj-text align="center" font-size="12px" color="white">
-      You're receiving this email because you are signed up to Feedelity.
+      You're receiving this email because you are signed up to The Pantry People.
     </mj-text>
   </mj-column>
 </mj-section>

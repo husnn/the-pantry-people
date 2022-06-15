@@ -3,8 +3,8 @@ import {
   AuthService,
   UserRepository,
   WrappedError
-} from '@feedelity/core';
-import { LoginResponse, SignupResponse } from '@feedelity/shared';
+} from '@tpp/core';
+import { LoginResponse, SignupResponse } from '@tpp/shared';
 import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import config from '../config';

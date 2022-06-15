@@ -1,4 +1,4 @@
-import { User } from '@feedelity/core';
+import { User } from '@tpp/core';
 import { EntitySchema } from 'typeorm';
 
 const UserSchema = new EntitySchema<User>({

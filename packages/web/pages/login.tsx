@@ -1,4 +1,4 @@
-import { isEmailAddress, isValidPassword } from '@feedelity/shared';
+import { isEmailAddress, isValidPassword } from '@tpp/shared';
 import {
   Box,
   Button,

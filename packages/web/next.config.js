@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const withTM = require('next-transpile-modules')([
-    '@feedelity/shared'
+    '@tpp/shared'
 ]);
 
 module.exports = withTM({

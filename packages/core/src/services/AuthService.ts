@@ -1,4 +1,4 @@
-import { CurrentUserDTO } from '@feedelity/shared';
+import { CurrentUserDTO } from '@tpp/shared';
 import { Result } from '../base';
 import { User } from '../entities';
 import { UserRepository } from '../repositories';

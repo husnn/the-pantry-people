@@ -5,7 +5,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Feedelity</title>
+        <title>The Pantry People</title>
         <meta
           name="description"
           content="Helping food banks better connect with their community."

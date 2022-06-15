@@ -1,4 +1,4 @@
-import { ID } from '@feedelity/shared';
+import { ID } from '@tpp/shared';
 
 export interface Repository<T> {
   get(id: ID): Promise<T>;

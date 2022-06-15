@@ -1,4 +1,4 @@
-import { User, UserRepository as IUserRepository } from '@feedelity/core';
+import { User, UserRepository as IUserRepository } from '@tpp/core';
 import UserSchema from '../schemas/UserSchema';
 import Repository from './Repository';
 

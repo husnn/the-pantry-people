@@ -1,5 +1,5 @@
-import Postgres from '@feedelity/postgres';
-import { isDev } from '@feedelity/shared';
+import Postgres from '@tpp/postgres';
+import { isDev } from '@tpp/shared';
 import { createClient, RedisClientType } from 'redis';
 import App from './App';
 import config from './config';

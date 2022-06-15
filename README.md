@@ -1,4 +1,4 @@
-# Feedelity
+# The Pantry People
 
 ## How to run
 

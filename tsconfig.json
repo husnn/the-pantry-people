@@ -2,10 +2,10 @@
   "compilerOptions": {
     "baseUrl": "./packages",
     "paths": {
-      "@feedelity/shared": ["./shared/src"],
-      "@feedelity/emails": ["./emails/src"],
-      "@feedelity/core": ["./core/src"],
-      "@feedelity/postgres": ["./postgres/src"]
+      "@tpp/shared": ["./shared/src"],
+      "@tpp/emails": ["./emails/src"],
+      "@tpp/core": ["./core/src"],
+      "@tpp/postgres": ["./postgres/src"]
     }
   }
 }

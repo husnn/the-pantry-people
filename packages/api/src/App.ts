@@ -1,5 +1,5 @@
-import { UserRepository } from '@feedelity/postgres';
-import { authCookieName } from '@feedelity/shared';
+import { UserRepository } from '@tpp/postgres';
+import { authCookieName } from '@tpp/shared';
 import cors from 'cors';
 import express, { Application, Router } from 'express';
 import session from 'express-session';
