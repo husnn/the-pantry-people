@@ -12,7 +12,8 @@
     "watch": "pnpm build --watch",
     "emails": "pnpm --filter @feedelity/emails",
     "api": "pnpm --filter @feedelity/api",
-    "web": "pnpm --filter @feedelity/web"
+    "web": "pnpm --filter @feedelity/web",
+    "dev": "concurrently \"pnpm web dev\" \"pnpm api dev\""
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.28.0",
