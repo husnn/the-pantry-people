@@ -8,7 +8,7 @@ import logger from './logger';
 (async () => {
   try {
     await Postgres.init();
-    logger.info('Connect to database.');
+    logger.info('Connected to database.');
 
     let redis: RedisClientType;
 
@@ -24,7 +24,7 @@ import logger from './logger';
 
     new App(redis).start();
   } catch (err) {
-    logger.error(err);
+    console.log(err);
     process.exit(1);
   }
 })();

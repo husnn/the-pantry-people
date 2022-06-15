@@ -4,9 +4,10 @@ import {
   UserRepository,
   WrappedError
 } from '@feedelity/core';
-import { LoginResponse } from '@feedelity/shared';
+import { LoginResponse, SignupResponse } from '@feedelity/shared';
 import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
+import config from '../config';
 import { HttpError, HttpResponse, ValidationError } from '../http';
 import logger from '../logger';
 
@@ -41,8 +42,9 @@ class AuthController {
 
           logger.info(`User ${user.id} signed up.`);
 
-          return new HttpResponse<LoginResponse>(res, {
-            user: result.data.user
+          return new HttpResponse<SignupResponse>(res, {
+            user: result.data.user,
+            expiry: new Date(Date.now() + config.auth.expiry).getTime()
           });
         });
       });
@@ -83,7 +85,8 @@ class AuthController {
           logger.info(`User ${user.id} logged in.`);
 
           return new HttpResponse<LoginResponse>(res, {
-            user: result.data.user
+            user: result.data.user,
+            expiry: new Date(Date.now() + config.auth.expiry).getTime()
           });
         });
       });

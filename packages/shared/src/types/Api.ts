@@ -26,12 +26,14 @@ export interface Response<T = any> {
 
 export interface LoginResponse extends Response {
   user: CurrentUserDTO;
+  expiry: number;
 }
 
 export interface LoginRequest extends Request {}
 
 export interface SignupResponse extends Response {
   user: CurrentUserDTO;
+  expiry: number;
 }
 
 export interface SignupRequest extends Request {}

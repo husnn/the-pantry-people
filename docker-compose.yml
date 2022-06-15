@@ -39,8 +39,9 @@ services:
   web:
     build: .
     command: npm run web start
+    env_file: ./packages/web/.env
     environment:
-      NEXT_PUBLIC_API_URL: http://localhost:5000/v1
+      NEXT_PUBLIC_API_URL: http://localhost/api/v1
     restart: on-failure
     depends_on:
       - api

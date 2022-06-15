@@ -14,7 +14,7 @@ export const isEmailAddress = (value: string) =>
 
 export const isUsername = (value: string) => USERNAME_REGEX.test(value);
 
-export const isValidPassword = (value: string) =>
+export const isValidPassword = (value: string): boolean =>
   value && value.length >= 8 && value.length <= 16;
 
 export const URL_REGEX = /^((?:https?:\/\/)?[^./]+(?:\.[^./]+)+(?:\/.*)?)$/;

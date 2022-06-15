@@ -7,7 +7,6 @@ const config = {
     isSecure: process.env.HTTP_PROTOCOL === 'https'
   },
   auth: {
-    cookie: 'sid',
     secret: process.env.AUTH_SECRET || 's3creTi5siM0',
     expiry: 60 * 60 * 24 * 7 * 1000, // 7 days
     redis:

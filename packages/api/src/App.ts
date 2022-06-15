@@ -1,4 +1,5 @@
 import { UserRepository } from '@feedelity/postgres';
+import { authCookieName } from '@feedelity/shared';
 import cors from 'cors';
 import express, { Application, Router } from 'express';
 import session from 'express-session';
@@ -40,7 +41,7 @@ class App {
 
     app.use(
       session({
-        name: config.auth.cookie,
+        name: authCookieName,
         secret: config.auth.secret,
         store,
         resave: false,
