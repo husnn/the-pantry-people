@@ -15,6 +15,12 @@ RUN mkdir -p /usr/src/app && \
 
 WORKDIR /usr/src/app
 
+COPY package.json pnpm-*.yaml .
+
+RUN pnpm install
+
 COPY --chown=node:node . .
 
-RUN pnpm install && pnpm run build
+RUN pnpm install
+
+RUN pnpm build
