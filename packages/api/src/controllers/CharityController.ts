@@ -1,10 +1,11 @@
 import {
   CharityRepository,
   CharityService,
+  GeoService,
   UserRepository,
   WrappedError
 } from '@tpp/core';
-import { coordinatesToPoint, CreateCharityResponse } from '@tpp/shared';
+import { CreateCharityResponse } from '@tpp/shared';
 import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import { HttpResponse, ValidationError } from '../http';
@@ -14,9 +15,14 @@ class CharityController {
 
   constructor(
     userRepository: UserRepository,
-    charityRepository: CharityRepository
+    charityRepository: CharityRepository,
+    geoService: GeoService
   ) {
-    this.charityService = new CharityService(userRepository, charityRepository);
+    this.charityService = new CharityService(
+      userRepository,
+      charityRepository,
+      geoService
+    );
   }
 
   async create(req: Request, res: Response, next: NextFunction) {
@@ -31,7 +37,7 @@ class CharityController {
       const result = await this.charityService.create(
         req.session.user,
         name,
-        coordinatesToPoint(coordinates)
+        coordinates
       );
       if (!result.success)
         throw new WrappedError(result.error, 'Could not create charity.');

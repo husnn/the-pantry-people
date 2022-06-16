@@ -1,9 +1,16 @@
 export type Address = {
-  lines: string[];
+  formatted?: string;
+  building?: string;
+  streetNumber?: string;
+  street?: string;
   city: string;
-  region: {
+  region?: {
     name: string;
-    code: string;
+    code?: string;
+  };
+  province: {
+    name: string;
+    code?: string;
   };
   postcode: string;
   country: {

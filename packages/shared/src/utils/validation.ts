@@ -29,8 +29,8 @@ export const isValidCharityName = (name?: string) =>
 export const isValidCoordinates = (coords?: Coordinates) =>
   coords &&
   !isNaN(coords.lat) &&
-  !isNaN(coords.long) &&
+  !isNaN(coords.lon) &&
   coords.lat >= -90 &&
   coords.lat <= 90 &&
-  coords.long >= -180 &&
-  coords.long <= 180;
+  coords.lon >= -180 &&
+  coords.lon <= 180;

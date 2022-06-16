@@ -13,6 +13,9 @@ const config = {
       process.env.AUTH_REDIS_URL ||
       process.env.REDIS_URL ||
       'redis://localhost:6379'
+  },
+  thirdParty: {
+    googleGeocoding: process.env.GOOGLE_GEOCODING_API_KEY
   }
 };
 

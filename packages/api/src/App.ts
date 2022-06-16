@@ -10,6 +10,7 @@ import CharityController from './controllers/CharityController';
 import logger, { default as log } from './logger';
 import errorHandler from './middleware/errorHandler';
 import initRoutes from './routes';
+import GeoService from './services/GeoService';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const connectRedis = require('connect-redis')(session);
@@ -68,10 +69,13 @@ class App {
     const userRepository = new UserRepository();
     const charityRepository = new CharityRepository();
 
+    const geoService = new GeoService();
+
     const authController = new AuthController(userRepository);
     const charityController = new CharityController(
       userRepository,
-      charityRepository
+      charityRepository,
+      geoService
     );
 
     initRoutes(router, authController, charityController);
