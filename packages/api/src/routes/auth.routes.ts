@@ -2,6 +2,7 @@ import { isValidPassword } from '@tpp/shared';
 import { NextFunction, Request, Response, Router } from 'express';
 import { check } from 'express-validator';
 import AuthController from '../controllers/AuthController';
+import authMiddleware from '../middleware/authMiddleware';
 
 export default function init(authController: AuthController): Router {
   const router = Router();
@@ -21,6 +22,13 @@ export default function init(authController: AuthController): Router {
     (req: Request, res: Response, next: NextFunction) => {
       authController.login(req, res, next);
     }
+  );
+
+  router.post(
+    '/signout',
+    authMiddleware,
+    (req: Request, res: Response, next: NextFunction) =>
+      authController.signout(req, res, next)
   );
 
   return router;

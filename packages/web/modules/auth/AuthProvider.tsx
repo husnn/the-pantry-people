@@ -1,7 +1,13 @@
 import { CurrentUserDTO } from '@tpp/shared';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
-import { getCurrentUser, saveAuthExpiry, shouldUnauthenticate } from './utils';
+import {
+  getCurrentUser,
+  isAuthExpired,
+  saveAuthExpiry,
+  saveCurrentUser,
+  shouldUnauthenticate
+} from './utils';
 
 type AuthContextProps = {
   isAuthenticated: boolean;
@@ -42,6 +48,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setCurrentUser(user);
       setAuthenticated(true);
       saveAuthExpiry(expiry);
+      saveCurrentUser(user);
     },
     []
   );

@@ -24,16 +24,17 @@ export interface Response<T = any> {
   message?: string;
 }
 
-export interface LoginResponse extends Response {
-  user: CurrentUserDTO;
-  expiry: number;
-}
-
-export interface LoginRequest extends Request {}
-
+export interface SignupRequest extends Request {}
 export interface SignupResponse extends Response {
   user: CurrentUserDTO;
   expiry: number;
 }
 
-export interface SignupRequest extends Request {}
+export interface LoginRequest extends Request {}
+export interface LoginResponse extends Response {
+  user: CurrentUserDTO;
+  expiry: number;
+}
+
+export interface SignoutRequest extends Request {}
+export interface SignoutResponse extends Response {}

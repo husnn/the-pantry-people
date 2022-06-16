@@ -13,7 +13,7 @@
     "emails": "pnpm --filter @tpp/emails",
     "api": "pnpm --filter @tpp/api",
     "web": "pnpm --filter @tpp/web",
-    "dev": "concurrently \"pnpm web dev\" \"pnpm api dev\""
+    "dev": "concurrently \"pnpm watch\" \"pnpm web dev\" \"pnpm api dev\""
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.28.0",

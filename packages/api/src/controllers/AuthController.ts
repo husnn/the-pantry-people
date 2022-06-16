@@ -94,6 +94,21 @@ class AuthController {
       next(err);
     }
   }
+
+  async signout(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.session.user;
+
+      req.session.destroy((err) => {
+        if (err) return next(err);
+
+        logger.info(`User ${userId} signed out.`);
+        return new HttpResponse(res);
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 export default AuthController;

@@ -42,6 +42,7 @@ export const saveCurrentUser = (
 };
 
 export const removeAuth = () => {
+  localStorage.removeItem(AUTH_EXPIRY);
   localStorage.removeItem(CURRENT_USER);
 };
 
