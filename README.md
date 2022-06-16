@@ -53,3 +53,10 @@ class UserRepository implements IUserRepository {
     }
 }
 ```
+
+## Running a database migration
+1. Go into the `postgres` directory and set the database config inside an `.env` file (e.g. `DATABASE_URL`).
+2. Execute `npm run db:gen --name=your-change` to generate the migration.
+3. Run `pnpm db:migrate` to apply the change.
+
+Latest changes can be reverted by running `pnpm db:revert`

@@ -1,3 +1,4 @@
+import { isProd } from '@tpp/shared';
 import 'reflect-metadata';
 
 import { DataSource } from 'typeorm';
@@ -5,33 +6,39 @@ import { defaultConfig } from './config';
 import entitySchemas from './schemas';
 import { PostgresConfig } from './types';
 
-export let datasource = new DataSource({ type: 'postgres' });
+export let dataSource: DataSource;
 
-export default {
-  init: async (config: PostgresConfig = defaultConfig) => {
-    datasource = new DataSource({
-      type: 'postgres',
-      ...(config.uri
-        ? {
-            url: config.uri
-          }
-        : {
-            host: config.host,
-            port: config.port,
-            database: config.database,
-            username: config.username,
-            password: config.password
-          }),
-      synchronize: process.env.NODE_ENV !== 'production',
-      entities: entitySchemas,
-      ...(config.uri && {
-        ssl: { rejectUnauthorized: false }
-      })
-    });
+const setup = (config: PostgresConfig = defaultConfig) => {
+  dataSource = new DataSource({
+    type: 'postgres',
+    ...(config.uri
+      ? {
+          url: config.uri
+        }
+      : {
+          host: config.host,
+          port: config.port,
+          database: config.database,
+          username: config.username,
+          password: config.password
+        }),
+    entities: entitySchemas,
+    migrations: [`./dist/migrations/${isProd ? 'prod' : 'dev'}/*.js`],
+    synchronize: !isProd,
+    ...(config.uri && {
+      ssl: { rejectUnauthorized: false }
+    })
+  });
 
-    return datasource.initialize();
-  }
+  return dataSource;
 };
+
+const init = async (config?: PostgresConfig) => {
+  if (!dataSource) setup(config);
+  return dataSource.initialize();
+};
+
+export default { setup, init };
 
 export * from './repositories';
 export * from './types';

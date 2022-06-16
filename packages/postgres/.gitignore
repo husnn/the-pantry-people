@@ -1,2 +1,3 @@
 */migrations/*
 !*/migrations/prod
+!*/migrations/config

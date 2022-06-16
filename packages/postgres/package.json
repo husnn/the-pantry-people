@@ -4,13 +4,15 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "db:gen": "pnpm build && typeorm migration:generate -n",
-    "db:migrate": "pnpm build && typeorm migration:run",
-    "db:rollback": "typeorm migration:revert",
+    "lint": "eslint . --ext .ts --fix",
+    "db:gen": "pnpm build && typeorm migration:generate -d ./dist/migrations/config.js ./src/migrations/prod/$npm_config_name",
+    "db:migrate": "pnpm build && typeorm migration:run -d ./dist/migrations/config.js",
+    "db:rollback": "typeorm migration:revert -d ./dist/migrations/config.js",
     "build": "tsc --build tsconfig.json"
   },
   "devDependencies": {
     "@types/node": "^17.0.42",
+    "dotenv": "^16.0.1",
     "typescript": "^4.7.3"
   },
   "dependencies": {

@@ -1,4 +1,4 @@
-import { PostgresConfig } from "./types";
+import { PostgresConfig } from './types';
 
 export const defaultConfig: PostgresConfig = {
   uri: process.env.PG_URL || process.env.DATABASE_URL,

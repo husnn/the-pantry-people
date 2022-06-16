@@ -1,7 +1,7 @@
 import { Repository as IRepository } from '@tpp/core';
 import { ID } from '@tpp/shared';
 import { EntitySchema, In, Repository as PostgresRepository } from 'typeorm';
-import { datasource } from '..';
+import { dataSource } from '..';
 
 export abstract class Repository<T extends { id: ID }>
   implements IRepository<T>
@@ -9,7 +9,7 @@ export abstract class Repository<T extends { id: ID }>
   db: PostgresRepository<any>;
 
   constructor(schema: EntitySchema) {
-    this.db = datasource.getRepository(schema);
+    this.db = dataSource.getRepository(schema);
   }
 
   get(id: ID): Promise<T | undefined> {
