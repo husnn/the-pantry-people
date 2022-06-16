@@ -1,1 +1,1 @@
-web: yarn api serve
+web: pnpm api start

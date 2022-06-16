@@ -19,7 +19,7 @@ import logger from './logger';
       });
 
       await redis.connect();
-      logger.info(`Connected to Redis at ${config.auth.redis}`);
+      logger.info(`Connected to Redis.`);
     }
 
     new App(redis).start();
