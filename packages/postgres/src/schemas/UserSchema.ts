@@ -5,7 +5,7 @@ const UserSchema = new EntitySchema<User>({
   name: 'users',
   columns: {
     id: {
-      type: 'text',
+      type: 'integer',
       primary: true
     },
     dateCreated: {

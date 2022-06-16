@@ -11,7 +11,7 @@
     },
     {
       "path": "../emails"
-    },
+    }
   ],
   "include": ["src/**/*"]
 }

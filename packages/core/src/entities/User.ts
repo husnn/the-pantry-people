@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 
 export class User {
-  readonly id: string;
+  id: number;
   dateCreated: Date;
   email: string;
   password: string;

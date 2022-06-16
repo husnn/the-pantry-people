@@ -1,5 +1,5 @@
 export class CurrentUserDTO {
-  id: string;
+  id: number;
   email: string;
 
   constructor(data: Partial<CurrentUserDTO>) {

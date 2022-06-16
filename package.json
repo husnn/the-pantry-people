@@ -10,12 +10,14 @@
     "eslint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
     "build": "tsc --build tsconfig.build.json",
     "watch": "pnpm build --watch",
+    "core": "pnpm --filter @tpp/core",
     "emails": "pnpm --filter @tpp/emails",
     "api": "pnpm --filter @tpp/api",
     "web": "pnpm --filter @tpp/web",
     "dev": "concurrently \"pnpm watch\" \"pnpm web dev\" \"pnpm api dev\""
   },
   "devDependencies": {
+    "@types/geojson": "^7946.0.8",
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.28.0",
     "concurrently": "^7.2.1",
@@ -33,5 +35,8 @@
   },
   "engines": {
     "node": "18.3.0"
+  },
+  "dependencies": {
+    "geojson": "^0.5.0"
   }
 }

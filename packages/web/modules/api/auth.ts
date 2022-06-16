@@ -1,4 +1,9 @@
-import { LoginRequest, LoginResponse } from '@tpp/shared';
+import {
+  LoginRequest,
+  LoginResponse,
+  SignoutRequest,
+  SignoutResponse
+} from '@tpp/shared';
 import { removeAuth } from '../auth/utils';
 import { ApiClient } from '../http';
 
@@ -15,7 +20,7 @@ export const login = (email: string, password: string) =>
 
 export const signout = () =>
   ApiClient()
-    .request<LoginResponse, LoginRequest>({
+    .request<SignoutResponse, SignoutRequest>({
       method: 'POST',
       endpoint: '/auth/signout',
       authentication: 'required'

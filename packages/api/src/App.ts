@@ -1,4 +1,4 @@
-import { UserRepository } from '@tpp/postgres';
+import { CharityRepository, UserRepository } from '@tpp/postgres';
 import { authCookieName } from '@tpp/shared';
 import cors from 'cors';
 import express, { Application, Router } from 'express';
@@ -6,6 +6,7 @@ import session from 'express-session';
 import { RedisClientType } from 'redis';
 import config from './config';
 import AuthController from './controllers/AuthController';
+import CharityController from './controllers/CharityController';
 import logger, { default as log } from './logger';
 import errorHandler from './middleware/errorHandler';
 import initRoutes from './routes';
@@ -65,10 +66,15 @@ class App {
     const router = Router();
 
     const userRepository = new UserRepository();
+    const charityRepository = new CharityRepository();
 
     const authController = new AuthController(userRepository);
+    const charityController = new CharityController(
+      userRepository,
+      charityRepository
+    );
 
-    initRoutes(router, authController);
+    initRoutes(router, authController, charityController);
 
     app.use('/v1', router);
 
