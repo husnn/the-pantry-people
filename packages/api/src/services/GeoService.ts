@@ -23,7 +23,9 @@ export default class GeoService implements IGeoService {
       zipcode,
       country,
       countryCode,
-      building
+      building,
+      latitude,
+      longitude
     } = entry;
 
     return {
@@ -44,7 +46,9 @@ export default class GeoService implements IGeoService {
       country: {
         name: country,
         code: countryCode
-      }
+      },
+      latitude,
+      longitude
     } as Address;
   }
 

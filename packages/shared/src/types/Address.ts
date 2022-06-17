@@ -17,4 +17,6 @@ export type Address = {
     name: string;
     code: string;
   };
+  latitude: number;
+  longitude: number;
 };
