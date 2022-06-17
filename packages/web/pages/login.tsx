@@ -28,7 +28,7 @@ const Login = () => {
       })
       .catch((err) => {
         setEnabled(true);
-        setError(err);
+        setError(err.message);
       });
   }, [email, password, setAuthentication]);
 

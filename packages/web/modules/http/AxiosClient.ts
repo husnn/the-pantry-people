@@ -26,9 +26,8 @@ export default class AxiosClient extends HttpClient {
         return Promise.resolve(response.data);
       })
       .catch((err: AxiosError<U>) => {
-        return Promise.reject(
-          err.response ? err.response.data?.message : err.message
-        );
+        err.message = err.response?.data?.message || err.message;
+        return Promise.reject(err);
       });
   }
 }

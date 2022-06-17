@@ -4,6 +4,7 @@ import {
   SignoutRequest,
   SignoutResponse
 } from '@tpp/shared';
+import { AxiosError } from 'axios';
 import { removeAuth } from '../auth/utils';
 import { ApiClient } from '../http';
 
@@ -25,4 +26,7 @@ export const signout = () =>
       endpoint: '/auth/signout',
       authentication: 'required'
     })
-    .then(removeAuth);
+    .then(removeAuth)
+    .catch((err: AxiosError) => {
+      if (err.response?.status == 401) removeAuth();
+    });
