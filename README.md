@@ -15,7 +15,8 @@
 Without Docker (recommended for development)
 
 1. Install pnpm globally by running  `npm i -g pnpm`
-2. `pnpm dev` inside the project directory
+2. `pnpm install` inside the project directory
+3. `pnpm dev` to run both api and web and automatically reload on changes.
 
 With Docker
 
