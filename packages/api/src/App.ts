@@ -14,6 +14,8 @@ import GeoService from './services/GeoService';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const connectRedis = require('connect-redis')(session);
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const connectSQLite = require('connect-sqlite3')(session);
 
 class App {
   app: Application;
@@ -31,7 +33,9 @@ class App {
       })
     );
 
-    let store = new session.MemoryStore();
+    let store = new connectSQLite({
+      db: 'sessions.sqlite'
+    });
 
     if (redis) {
       store = new connectRedis({
