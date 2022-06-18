@@ -7,6 +7,7 @@ import { RedisClientType } from 'redis';
 import config from './config';
 import AuthController from './controllers/AuthController';
 import CharityController from './controllers/CharityController';
+import UserController from './controllers/UserController';
 import logger, { default as log } from './logger';
 import errorHandler from './middleware/errorHandler';
 import initRoutes from './routes';
@@ -76,13 +77,14 @@ class App {
     const geoService = new GeoService();
 
     const authController = new AuthController(userRepository);
+    const userController = new UserController(userRepository, geoService);
     const charityController = new CharityController(
       userRepository,
       charityRepository,
       geoService
     );
 
-    initRoutes(router, authController, charityController);
+    initRoutes(router, authController, userController, charityController);
 
     app.use('/v1', router);
 

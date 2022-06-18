@@ -61,6 +61,20 @@ export interface SignoutRequest extends Request {
 }
 export interface SignoutResponse extends Response {}
 
+export interface UpdateLocationRequest extends Request {
+  method: 'POST';
+  endpoint: '/users/me/location';
+  authentication: 'required';
+  body: {
+    postcode: string;
+  };
+}
+
+export interface UpdateLocationResponse extends Response {
+  user: CurrentUserDTO;
+  expiry: number;
+}
+
 export interface CreateCharityRequest extends Request {
   method: 'POST';
   endpoint: '/charities';

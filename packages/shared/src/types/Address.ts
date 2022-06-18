@@ -1,3 +1,5 @@
+import { Coordinates } from './Coordinates';
+
 export type Address = {
   formatted?: string;
   building?: string;
@@ -17,6 +19,5 @@ export type Address = {
     name: string;
     code: string;
   };
-  latitude: number;
-  longitude: number;
+  coordinates: Coordinates;
 };

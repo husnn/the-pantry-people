@@ -1,15 +1,27 @@
-import { GeoService as IGeoService, Result } from '@tpp/core';
+import {
+  GeoLookupFailureReason,
+  GeoService as IGeoService,
+  Result,
+  WrappedError
+} from '@tpp/core';
 import { Address, Coordinates } from '@tpp/shared';
+import axios, { Axios } from 'axios';
 import NodeGeocoder from 'node-geocoder';
 import config from '../config';
+import { parsePostcodesCoordinates } from './postcodesio';
 
 export default class GeoService implements IGeoService {
   private geocoder: NodeGeocoder.Geocoder;
+  private postcodesClient: Axios;
 
   constructor() {
     this.geocoder = NodeGeocoder({
       provider: 'google',
       apiKey: config.thirdParty.googleGeocoding
+    });
+
+    this.postcodesClient = axios.create({
+      baseURL: 'https://api.postcodes.io'
     });
   }
 
@@ -47,8 +59,10 @@ export default class GeoService implements IGeoService {
         name: country,
         code: countryCode
       },
-      latitude,
-      longitude
+      coordinates: {
+        lat: latitude,
+        lon: longitude
+      }
     } as Address;
   }
 
@@ -57,13 +71,63 @@ export default class GeoService implements IGeoService {
       .geocode(addr)
       .then((entries) => {
         if (entries.length < 1)
-          throw new Error(`No entries found for address: ${addr}.`);
+          return Result.fail<Address>(
+            new Error(`No entries found for address: ${addr}.`),
+            GeoLookupFailureReason.LOCATION_NOT_FOUND
+          );
 
         return Result.ok(this.parseEntry(entries[0]));
       })
       .catch((err) => {
         return Result.fail(err);
       });
+  }
+
+  async lookupOutcodeGB(code: string): Promise<Result<Partial<Address>>> {
+    try {
+      const res = await this.postcodesClient.get(`outcodes/${code}`);
+      return this.getRoughAddressFromCoordinates(
+        parsePostcodesCoordinates(res.data),
+        true
+      );
+    } catch (err) {
+      return Result.fail(
+        new WrappedError(err, `Could not lookup outward code: ${code}.`)
+      );
+    }
+  }
+
+  async lookupPostcodeGB(code: string): Promise<Result<Partial<Address>>> {
+    try {
+      const res = await this.postcodesClient.get(`postcodes/${code}`);
+      return this.getAddressFromCoordinates(
+        parsePostcodesCoordinates(res.data)
+      );
+    } catch (err) {
+      return this.lookupOutcodeGB(code);
+    }
+  }
+
+  async getRoughAddressFromCoordinates(
+    coords: Coordinates,
+    includeCoords = false
+  ): Promise<Result<Partial<Address>>> {
+    try {
+      const result = await this.getAddressFromCoordinates(coords);
+      if (!result.success) return Result.fail(result.error);
+
+      const { city, region, province, country } = result.data;
+
+      return Result.ok({
+        city,
+        region,
+        province,
+        country,
+        ...(includeCoords && { coordinates: coords })
+      });
+    } catch (err) {
+      return Result.fail(err);
+    }
   }
 
   async getAddressFromCoordinates(
