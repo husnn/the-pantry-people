@@ -23,8 +23,12 @@ class AuthController {
       if (errors['password']) throw new ValidationError('Invalid password.');
 
       const result = await this.authService.signup(email, password, req.ip);
-      if (!result.success)
+      if (!result.success) {
+        if (result.reason == AuthFailureReason.EMAIL_ALREADY_EXISTS)
+          throw new HttpError('Email address already in use.');
+
         throw new WrappedError(result.error, 'Could not sign up user.');
+      }
 
       const user = result.data;
 

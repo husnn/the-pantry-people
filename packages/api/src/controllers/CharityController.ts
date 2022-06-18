@@ -1,9 +1,14 @@
-import { AuthService, CharityService, WrappedError } from '@tpp/core';
+import {
+  AuthFailureReason,
+  AuthService,
+  CharityService,
+  WrappedError
+} from '@tpp/core';
 import { CreateCharityResponse, SignupCharityResponse } from '@tpp/shared';
 import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import config from '../config';
-import { HttpResponse, ValidationError } from '../http';
+import { HttpError, HttpResponse, ValidationError } from '../http';
 import logger from '../logger';
 
 class CharityController {
@@ -59,8 +64,12 @@ class CharityController {
         password,
         req.ip
       );
-      if (!signupResult.success)
+      if (!signupResult.success) {
+        if (signupResult.reason == AuthFailureReason.EMAIL_ALREADY_EXISTS)
+          throw new HttpError('Email address already in use.');
+
         throw new WrappedError(signupResult.error, 'Could not sign up user.');
+      }
 
       const user = signupResult.data;
 

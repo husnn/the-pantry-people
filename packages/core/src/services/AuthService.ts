@@ -18,6 +18,10 @@ export class AuthService {
     ip: string
   ): Promise<Result<CurrentUserDTO>> {
     try {
+      const existing = await this.userRepository.findByEmail(email);
+      if (existing)
+        return Result.fail(null, AuthFailureReason.EMAIL_ALREADY_EXISTS);
+
       const user = new User({
         id: generateUserId(),
         email,
