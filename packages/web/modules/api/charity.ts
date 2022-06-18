@@ -1,7 +1,7 @@
 import { SignupCharityRequest, SignupCharityResponse } from '@tpp/shared';
 import { ApiClient } from '../http';
 
-export const SignupCharity = (
+export const signupCharity = (
   email: string,
   password: string,
   name: string,

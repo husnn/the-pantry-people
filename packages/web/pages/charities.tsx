@@ -1,7 +1,8 @@
 import {
   isEmailAddress,
   isValidCharityName,
-  isValidPassword
+  isValidPassword,
+  isValidPostcode
 } from '@tpp/shared';
 import {
   Box,
@@ -12,7 +13,7 @@ import {
 } from '@mui/material';
 import { useCallback, useEffect } from 'react';
 import { useState } from 'react';
-import { SignupCharity } from '../modules/api/charity';
+import { signupCharity } from '../modules/api/charity';
 import useAuthentication from '../modules/auth/useAuthentication';
 
 const Charities = () => {
@@ -20,14 +21,14 @@ const Charities = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [charityName, setCharityName] = useState('');
+  const [name, setCharityName] = useState('');
   const [postcode, setPostcode] = useState('');
   const [error, setError] = useState();
   const [enabled, setEnabled] = useState(false);
 
   const onRegister = useCallback(() => {
     setEnabled(false);
-    SignupCharity(email, password, charityName, postcode)
+    signupCharity(email, password, name, postcode)
       .then((res) => {
         setAuthentication(res.user, res.expiry);
       })
@@ -35,16 +36,17 @@ const Charities = () => {
         setEnabled(true);
         setError(err.message);
       });
-  }, [email, password, charityName, postcode, setAuthentication]);
+  }, [email, password, name, postcode, setAuthentication]);
 
   useEffect(() => {
     setEnabled(
       isEmailAddress(email) &&
         isValidPassword(password) &&
-        isValidCharityName(charityName)
+        isValidCharityName(name) &&
+        isValidPostcode(postcode)
     );
     setError(undefined);
-  }, [email, password, charityName]);
+  }, [email, password, name, postcode]);
 
   return (
     <Container maxWidth="xs">
@@ -70,11 +72,11 @@ const Charities = () => {
         fullWidth
       />
       <TextField
-        type="charityName"
+        type="name"
         label="FoodBank Name"
         variant="outlined"
         margin="dense"
-        value={charityName}
+        value={name}
         onChange={(e) => setCharityName(e.target.value)}
         fullWidth
       />
@@ -83,7 +85,7 @@ const Charities = () => {
         label="Postcode"
         variant="outlined"
         margin="dense"
-        value={setPostcode}
+        value={postcode}
         onChange={(e) => setPostcode(e.target.value)}
         fullWidth
       />

@@ -21,6 +21,9 @@ export const isValidURL = (value: string) => URL_REGEX.test(value);
 export const isValidCharityName = (name?: string): boolean =>
   name && name.length >= 3 && name.length <= 32;
 
+export const isValidPostcode = (code?: string): boolean =>
+  code && code.length >= 3 && code.length <= 8;
+
 export const isValidCoordinates = (coords?: Coordinates) =>
   coords &&
   !isNaN(coords.lat) &&

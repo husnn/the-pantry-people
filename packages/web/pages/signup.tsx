@@ -66,7 +66,7 @@ const Signup = () => {
         label="Postcode"
         variant="outlined"
         margin="dense"
-        value={setPostcode}
+        value={postcode}
         onChange={(e) => setPostcode(e.target.value)}
         fullWidth
       />
