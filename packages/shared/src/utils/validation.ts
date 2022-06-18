@@ -23,7 +23,7 @@ export const URL_REGEX = /^((?:https?:\/\/)?[^./]+(?:\.[^./]+)+(?:\/.*)?)$/;
 
 export const isValidURL = (value: string) => URL_REGEX.test(value);
 
-export const isValidCharityName = (name?: string) =>
+export const isValidCharityName = (name: string): boolean =>
   name && name.length >= 3 && name.length <= 32;
 
 export const isValidCoordinates = (coords?: Coordinates) =>

@@ -1,4 +1,6 @@
 import {
+  CreateCharityRequest,
+  CreateCharityResponse,
   LoginRequest,
   LoginResponse,
   SignoutRequest,
@@ -21,6 +23,25 @@ export const signup = (email: string, password: string, postcode: string) =>
       postcode
     }
   });
+
+export const charitysignup = (
+  email: string,
+  password: string,
+  charityName: string,
+  postcode: string
+) =>
+  ApiClient().request<CreateCharityResponse, CreateCharityRequest>({
+    method: 'POST',
+    endpoint: '/charities',
+    authentication: 'none',
+    body: {
+      email,
+      password,
+      charityName,
+      postcode
+    }
+  });
+
 
 export const login = (email: string, password: string) =>
   ApiClient().request<LoginResponse, LoginRequest>({
