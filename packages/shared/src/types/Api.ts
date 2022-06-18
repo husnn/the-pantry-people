@@ -29,6 +29,8 @@ export interface SignupRequest extends Request {
   endpoint: '/auth/signup';
   authentication: 'none';
   body: {
+    firstName?: string;
+    lastName?: string;
     email: string;
     password: string;
     postcode?: string;

@@ -19,22 +19,26 @@ export class AuthService {
     email: string,
     password: string,
     ip: string,
-    postcode?: string
+    postcode?: string,
+    firstName?: string,
+    lastName?: string
   ): Promise<Result<CurrentUserDTO>> {
     try {
       const existing = await this.userRepository.findByEmail(email);
       if (existing)
         return Result.fail(null, AuthFailureReason.EMAIL_ALREADY_EXISTS);
 
-      const user = new User({
+      let user = new User({
         id: generateUserId(),
         email,
+        firstName,
+        lastName,
         lastLogin: new Date(),
         lastLoginIP: ip
       });
 
       user.password = await User.hashPassword(password);
-      await this.userRepository.create(user);
+      user = await this.userRepository.create(user);
 
       let dto = new CurrentUserDTO(user);
 

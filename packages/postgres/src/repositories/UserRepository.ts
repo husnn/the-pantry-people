@@ -30,7 +30,7 @@ export class UserRepository
 
   async setAddress(userId: number, address: Address): Promise<Result<User>> {
     try {
-      const update = await this.db
+      await this.db
         .createQueryBuilder('user')
         .update({
           address,
@@ -39,10 +39,11 @@ export class UserRepository
             : undefined
         } as any)
         .where({ id: userId })
-        .returning('*')
         .execute();
 
-      return Result.ok(update.raw[0]);
+      const user = await this.get(userId);
+
+      return Result.ok(user);
     } catch (err) {
       return Result.fail(err);
     }

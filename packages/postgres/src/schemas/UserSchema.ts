@@ -23,6 +23,16 @@ const UserSchema = new EntitySchema<User>({
       name: 'password',
       select: false
     },
+    firstName: {
+      type: 'text',
+      name: 'first_name',
+      nullable: true
+    },
+    lastName: {
+      type: 'text',
+      name: 'last_name',
+      nullable: true
+    },
     lastLogin: {
       type: 'timestamp',
       name: 'last_login',

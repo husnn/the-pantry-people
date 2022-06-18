@@ -12,6 +12,8 @@ export default function init(authController: AuthController): Router {
     body('email').isEmail().normalizeEmail(),
     body('password').custom(isValidPassword),
     body('postcode').optional().isPostalCode('GB'),
+    body('firsName').optional().trim(), // TODO(): Remove optional
+    body('lastName').optional().trim(), // TODO(): Remove optional
     (req: Request, res: Response, next: NextFunction) =>
       authController.signup(req, res, next)
   );

@@ -30,10 +30,12 @@ class AuthController {
 
   async signup(req: Request, res: Response, next: NextFunction) {
     try {
-      const { email, password, postcode } = req.body;
+      const { firstName, lastName, email, password, postcode } = req.body;
 
       const errors = validationResult(req).mapped();
 
+      if (errors['firstName']) throw new ValidationError('Missing first name.');
+      if (errors['lastName']) throw new ValidationError('Missing last name.');
       if (errors['email']) throw new ValidationError('Invalid email address.');
       if (errors['password']) throw new ValidationError('Invalid password.');
       if (errors['postcode']) throw new ValidationError('Invalid postcode.');
@@ -42,7 +44,9 @@ class AuthController {
         email,
         password,
         req.ip,
-        postcode
+        postcode,
+        firstName,
+        lastName
       );
       if (!result.success) {
         if (result.reason == AuthFailureReason.EMAIL_ALREADY_EXISTS)

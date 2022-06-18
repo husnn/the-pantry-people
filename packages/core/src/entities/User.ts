@@ -7,6 +7,8 @@ export class User {
   dateCreated: Date;
   email: string;
   password: string;
+  firstName?: string;
+  lastName?: string;
   lastLogin?: Date;
   lastLoginIP?: string;
   address?: Address;
