@@ -1,13 +1,17 @@
-import { Button } from '@mui/material';
+import { Button, Box } from '@mui/material';
+import Bar from '../components/Header';
 import { signout } from '../modules/api/auth';
 import useAuthentication from '../modules/auth/useAuthentication';
 
 const Dashboard = () => {
   useAuthentication(true);
   return (
-    <div>
-      <Button onClick={signout}>Signout</Button>
-    </div>
+    <Box>
+      <Bar></Bar>
+      <div>
+        <Button onClick={signout}>Signout</Button>
+      </div>
+    </Box>
   );
 };
 
