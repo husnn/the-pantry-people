@@ -31,7 +31,7 @@ export interface SignupRequest extends Request {
   body: {
     email: string;
     password: string;
-    postcode: string;
+    postcode?: string;
   };
 }
 export interface SignupResponse extends Response {

@@ -1,6 +1,6 @@
 import { isValidPassword } from '@tpp/shared';
 import { NextFunction, Request, Response, Router } from 'express';
-import { check } from 'express-validator';
+import { body, check } from 'express-validator';
 import AuthController from '../controllers/AuthController';
 import authMiddleware from '../middleware/authMiddleware';
 
@@ -9,8 +9,9 @@ export default function init(authController: AuthController): Router {
 
   router.post(
     '/signup',
-    check('email').isEmail().normalizeEmail(),
-    check('password').custom(isValidPassword),
+    body('email').isEmail().normalizeEmail(),
+    body('password').custom(isValidPassword),
+    body('postcode').optional().isPostalCode('GB'),
     (req: Request, res: Response, next: NextFunction) =>
       authController.signup(req, res, next)
   );

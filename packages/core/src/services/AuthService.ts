@@ -4,18 +4,22 @@ import { User } from '../entities';
 import { UserRepository } from '../repositories';
 import { generateUserId } from '../utils';
 import { AuthFailureReason } from './errors';
+import UserService from './UserService';
 
 export class AuthService {
+  private userService: UserService;
   private userRepository: UserRepository;
 
-  constructor(userRepository: UserRepository) {
+  constructor(userService: UserService, userRepository: UserRepository) {
+    this.userService = userService;
     this.userRepository = userRepository;
   }
 
   async signup(
     email: string,
     password: string,
-    ip: string
+    ip: string,
+    postcode?: string
   ): Promise<Result<CurrentUserDTO>> {
     try {
       const existing = await this.userRepository.findByEmail(email);
@@ -32,7 +36,15 @@ export class AuthService {
       user.password = await User.hashPassword(password);
       await this.userRepository.create(user);
 
-      return Result.ok(new CurrentUserDTO(user));
+      let dto = new CurrentUserDTO(user);
+
+      const locResult = await this.userService.updateLocation(
+        user.id,
+        postcode
+      );
+      if (locResult.success) dto = locResult.data;
+
+      return Result.ok(dto);
     } catch (err) {
       return Result.fail(err);
     }

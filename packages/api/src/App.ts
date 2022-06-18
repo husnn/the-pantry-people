@@ -75,16 +75,20 @@ class App {
     const userRepository = new UserRepository();
     const charityRepository = new CharityRepository();
 
-    const authService = new AuthService(userRepository);
     const geoService = new GeoService();
     const userService = new UserService(userRepository, geoService);
+    const authService = new AuthService(userService, userRepository);
     const charityService = new CharityService(
       userRepository,
       charityRepository,
       geoService
     );
 
-    const authController = new AuthController(authService, charityService);
+    const authController = new AuthController(
+      authService,
+      userService,
+      charityService
+    );
     const userController = new UserController(userService);
     const charityController = new CharityController(
       authService,

@@ -3,6 +3,7 @@ import {
   AuthService,
   CharityService,
   Result,
+  UserService,
   WrappedError
 } from '@tpp/core';
 import { CharityDTO, LoginResponse, SignupResponse } from '@tpp/shared';
@@ -14,26 +15,38 @@ import logger from '../logger';
 
 class AuthController {
   private authService: AuthService;
+  private userService: UserService;
   private charityService: CharityService;
 
-  constructor(authService: AuthService, charityService: CharityService) {
+  constructor(
+    authService: AuthService,
+    userService: UserService,
+    charityService: CharityService
+  ) {
     this.authService = authService;
+    this.userService = userService;
     this.charityService = charityService;
   }
 
   async signup(req: Request, res: Response, next: NextFunction) {
     try {
-      const { email, password } = req.body;
+      const { email, password, postcode } = req.body;
 
       const errors = validationResult(req).mapped();
 
       if (errors['email']) throw new ValidationError('Invalid email address.');
       if (errors['password']) throw new ValidationError('Invalid password.');
+      if (errors['postcode']) throw new ValidationError('Invalid postcode.');
 
-      const result = await this.authService.signup(email, password, req.ip);
+      const result = await this.authService.signup(
+        email,
+        password,
+        req.ip,
+        postcode
+      );
       if (!result.success) {
         if (result.reason == AuthFailureReason.EMAIL_ALREADY_EXISTS)
-          throw new HttpError('Email address already in use.');
+          throw new HttpError('Email address already in use.', 400);
 
         throw new WrappedError(result.error, 'Could not sign up user.');
       }
