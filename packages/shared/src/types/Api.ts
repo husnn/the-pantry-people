@@ -64,12 +64,16 @@ export interface SignoutResponse extends Response {}
 export interface CreateCharityRequest extends Request {
   method: 'POST';
   endpoint: '/charities';
-  authentication: 'required';
+  authentication: 'none';
   body: {
-    name: string;
-    coordinates?: Point;
+    email: string;
+    password: string;
+    charityName: string;
+    postcode: string;
   };
 }
 export interface CreateCharityResponse extends Response {
   charity: CharityDTO;
+  user: CurrentUserDTO;
+  expiry: number;
 }
