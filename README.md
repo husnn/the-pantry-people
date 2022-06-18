@@ -4,11 +4,11 @@
 
 ### Requirements
 - Node.js (v18+ recommended)
-- PostgreSQL. You can either:
-    - Manually launch a local/remote instance of PostgreSQL.
-      - Create a `.env` file inside `packages/api` and add your configuration.<br>
-      *i.e. `DATABASE_URL=postgres://user:password@host:5432/name`*
-    - Install Docker and simply run the following command: `docker run -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d --restart unless-stopped postgres`.
+- PostgreSQL with PostGIS. You can either:
+    - Manually launch a local/remote instance of PostgreSQL and install the PostGIS extension.
+      - Then create a `.env` file inside `packages/api` and add your configuration.<br>
+      *e.g. `DATABASE_URL=postgres://user:password@host:5432/name`*
+    - Install Docker and simply run the following command: `docker run -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d --restart unless-stopped postgis/postgis`.
 
 ### Running the app
 
@@ -56,6 +56,9 @@ class UserRepository implements IUserRepository {
 ```
 
 ## Running a database migration
+
+Database schema changes will be automatically applied in staging and development environments. For production changes, a migration can be generated and ran by following the steps below. 
+
 1. Go into the `postgres` directory and set the database config inside an `.env` file (e.g. `DATABASE_URL`).
 2. Execute `npm run db:gen --name=your-change` to generate the migration.
 3. Run `pnpm db:migrate` to apply the change.
