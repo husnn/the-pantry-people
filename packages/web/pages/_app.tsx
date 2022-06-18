@@ -7,7 +7,7 @@ import theme from '../styles/themes/DefaultTheme';
 import { createEmotionCache } from '../utils/emotion';
 import { AppProps } from 'next/app';
 import { AuthProvider } from '../modules/auth/AuthProvider';
-import Bar from '../components/Header';
+import NavBar from '../components/NavBar';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -26,7 +26,7 @@ export default function MyApp(props: MyAppProps) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AuthProvider>
-          <Bar />
+          <NavBar />
           <Component {...pageProps} />
         </AuthProvider>
       </ThemeProvider>

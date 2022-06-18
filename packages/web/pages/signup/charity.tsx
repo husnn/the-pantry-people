@@ -1,4 +1,9 @@
-import { isEmailAddress, isValidPassword } from '@tpp/shared';
+import {
+  isEmailAddress,
+  isValidCharityName,
+  isValidPassword,
+  isValidPostcode
+} from '@tpp/shared';
 import {
   Box,
   Button,
@@ -8,21 +13,22 @@ import {
 } from '@mui/material';
 import { useCallback, useEffect } from 'react';
 import { useState } from 'react';
-import { login } from '../modules/api/auth';
-import useAuthentication from '../modules/auth/useAuthentication';
+import { signupCharity } from '../../modules/api/charity';
+import useAuthentication from '../../modules/auth/useAuthentication';
 
-const Login = () => {
+const CharitySignup = () => {
   const { setAuthentication } = useAuthentication(false, true);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setCharityName] = useState('');
+  const [postcode, setPostcode] = useState('');
   const [error, setError] = useState();
-
   const [enabled, setEnabled] = useState(false);
 
-  const onLogin = useCallback(() => {
+  const onRegister = useCallback(() => {
     setEnabled(false);
-    login(email, password)
+    signupCharity(email, password, name, postcode)
       .then((res) => {
         setAuthentication(res.user, res.expiry);
       })
@@ -30,18 +36,23 @@ const Login = () => {
         setEnabled(true);
         setError(err.message);
       });
-  }, [email, password, setAuthentication]);
+  }, [email, password, name, postcode, setAuthentication]);
 
   useEffect(() => {
-    setEnabled(isEmailAddress(email) && isValidPassword(password));
+    setEnabled(
+      isEmailAddress(email) &&
+        isValidPassword(password) &&
+        isValidCharityName(name) &&
+        isValidPostcode(postcode)
+    );
     setError(undefined);
-  }, [email, password]);
+  }, [email, password, name, postcode]);
 
   return (
     <Container disableGutters>
       <Container maxWidth="xs">
-        <h2>Log into your account</h2>
-        <p>Enter your email and password to sign into your account.</p>
+        <h2>Register a FoodBank</h2>
+        <p>Create a FoodBank account.</p>
 
         <form>
           <TextField
@@ -62,16 +73,34 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             fullWidth
           />
+          <TextField
+            type="name"
+            label="FoodBank Name"
+            variant="outlined"
+            margin="dense"
+            value={name}
+            onChange={(e) => setCharityName(e.target.value)}
+            fullWidth
+          />
+          <TextField
+            type="postcode"
+            label="Postcode"
+            variant="outlined"
+            margin="dense"
+            value={postcode}
+            onChange={(e) => setPostcode(e.target.value)}
+            fullWidth
+          />
           <FormHelperText error>{error}</FormHelperText>
           <Box sx={{ m: 2 }} />
           <Button
             type="submit"
             variant="contained"
-            onClick={onLogin}
+            onClick={onRegister}
             disabled={!enabled}
             fullWidth
           >
-            Login
+            Register
           </Button>
         </form>
       </Container>
@@ -79,4 +108,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default CharitySignup;
