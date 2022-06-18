@@ -2,7 +2,10 @@ import { createTheme } from '@mui/material/styles';
 
 const DefaultTheme = createTheme({
   palette: {
-    mode: 'light'
+    secondary: {
+      main: '#FFB33F',
+      contrastText: '#FFFFFF'
+    }
   },
   spacing: 8
 });

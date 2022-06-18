@@ -56,56 +56,6 @@ const Charities = () => {
         <h2>Register a FoodBank</h2>
         <p>Create a FoodBank account.</p>
 
-<<<<<<< HEAD
-      <TextField
-        type="email"
-        label="Email address"
-        variant="outlined"
-        margin="dense"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        fullWidth
-      />
-      <TextField
-        type="password"
-        label="Password"
-        variant="outlined"
-        margin="dense"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        fullWidth
-      />
-      <TextField
-        type="name"
-        label="FoodBank Name"
-        variant="outlined"
-        margin="dense"
-        value={name}
-        onChange={(e) => setCharityName(e.target.value)}
-        fullWidth
-      />
-      <TextField
-        type="postcode"
-        label="Postcode"
-        variant="outlined"
-        margin="dense"
-        value={postcode}
-        onChange={(e) => setPostcode(e.target.value)}
-        fullWidth
-      />
-      <FormHelperText error>{error}</FormHelperText>
-      <Box sx={{ m: 2 }} />
-      <Button
-        type="submit"
-        variant="contained"
-        onClick={onRegister}
-        disabled={!enabled}
-        fullWidth
-      >
-        Register
-      </Button>
-    </Container>
-=======
         <TextField
           type="email"
           label="Email address"
@@ -125,11 +75,11 @@ const Charities = () => {
           fullWidth
         />
         <TextField
-          type="charityName"
+          type="name"
           label="FoodBank Name"
           variant="outlined"
           margin="dense"
-          value={charityName}
+          value={name}
           onChange={(e) => setCharityName(e.target.value)}
           fullWidth
         />
@@ -138,7 +88,7 @@ const Charities = () => {
           label="Postcode"
           variant="outlined"
           margin="dense"
-          value={setPostcode}
+          value={postcode}
           onChange={(e) => setPostcode(e.target.value)}
           fullWidth
         />
@@ -155,7 +105,6 @@ const Charities = () => {
         </Button>
       </Container>
     </Box>
->>>>>>> 95dfc31 (web: Add appBar with logo to pages)
   );
 };
 
