@@ -39,48 +39,50 @@ const Signup = () => {
   }, [email, password]);
 
   return (
-    <Container maxWidth="xs">
-      <h2>Register</h2>
-      <p>Create an account using an email and a password.</p>
+    <Container disableGutters>
+      <Container maxWidth="xs">
+        <h2>Register</h2>
+        <p>Create an account using an email and a password.</p>
 
-      <TextField
-        type="email"
-        label="Email address"
-        variant="outlined"
-        margin="dense"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        fullWidth
-      />
-      <TextField
-        type="password"
-        label="Password"
-        variant="outlined"
-        margin="dense"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        fullWidth
-      />
-      <TextField
-        type="postcode"
-        label="Postcode"
-        variant="outlined"
-        margin="dense"
-        value={setPostcode}
-        onChange={(e) => setPostcode(e.target.value)}
-        fullWidth
-      />
-      <FormHelperText error>{error}</FormHelperText>
-      <Box sx={{ m: 2 }} />
-      <Button
-        type="submit"
-        variant="contained"
-        onClick={onRegister}
-        disabled={!enabled}
-        fullWidth
-      >
-        Register
-      </Button>
+        <TextField
+          type="email"
+          label="Email address"
+          variant="outlined"
+          margin="dense"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          fullWidth
+        />
+        <TextField
+          type="password"
+          label="Password"
+          variant="outlined"
+          margin="dense"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          fullWidth
+        />
+        <TextField
+          type="postcode"
+          label="Postcode"
+          variant="outlined"
+          margin="dense"
+          value={postcode}
+          onChange={(e) => setPostcode(e.target.value)}
+          fullWidth
+        />
+        <FormHelperText error>{error}</FormHelperText>
+        <Box sx={{ m: 2 }} />
+        <Button
+          type="submit"
+          variant="contained"
+          onClick={onRegister}
+          disabled={!enabled}
+          fullWidth
+        >
+          Register
+        </Button>
+      </Container>
     </Container>
   );
 };
