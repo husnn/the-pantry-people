@@ -74,4 +74,6 @@ export interface CreateCharityRequest extends Request {
 }
 export interface CreateCharityResponse extends Response {
   charity: CharityDTO;
+  user: CurrentUserDTO;
+  expiry: number;
 }
