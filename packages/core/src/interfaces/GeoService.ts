@@ -3,5 +3,9 @@ import { Result } from '../base';
 
 export interface GeoService {
   lookupAddress(addr: string): Promise<Result<Address>>;
-  getAddressFromCoordinates(coords: Coordinates): Promise<Result<Address>>;
+  lookupPostcodeGB(code: string): Promise<Result<Partial<Address>>>;
+  getAddressFromCoordinates(
+    coords: Coordinates,
+    rough?: boolean
+  ): Promise<Result<Address>>;
 }

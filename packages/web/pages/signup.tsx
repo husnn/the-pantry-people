@@ -17,8 +17,8 @@ const Signup = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const [postcode, setPostcode] = useState('');
+
   const [error, setError] = useState();
   const [enabled, setEnabled] = useState(false);
 
@@ -32,7 +32,7 @@ const Signup = () => {
         setEnabled(true);
         setError(err.message);
       });
-  }, [email, password, setAuthentication]);
+  }, [email, password, postcode, setAuthentication]);
 
   useEffect(() => {
     setEnabled(isEmailAddress(email) && isValidPassword(password));

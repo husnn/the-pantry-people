@@ -16,7 +16,7 @@ export class AuthService {
     email: string,
     password: string,
     ip: string
-  ): Promise<Result<{ user: CurrentUserDTO }>> {
+  ): Promise<Result<CurrentUserDTO>> {
     try {
       const user = new User({
         id: generateUserId(),
@@ -28,7 +28,7 @@ export class AuthService {
       user.password = await User.hashPassword(password);
       await this.userRepository.create(user);
 
-      return Result.ok({ user: new CurrentUserDTO(user) });
+      return Result.ok(new CurrentUserDTO(user));
     } catch (err) {
       return Result.fail(err);
     }
@@ -38,7 +38,7 @@ export class AuthService {
     email: string,
     password: string,
     ip: string
-  ): Promise<Result<{ user: CurrentUserDTO }>> {
+  ): Promise<Result<CurrentUserDTO>> {
     try {
       const user = await this.userRepository.findByEmail(email, {
         select: ['password']
@@ -57,7 +57,7 @@ export class AuthService {
         lastLoginIP: ip
       });
 
-      return Result.ok({ user: new CurrentUserDTO(user) });
+      return Result.ok(new CurrentUserDTO(user));
     } catch (err) {
       return Result.fail(err);
     }

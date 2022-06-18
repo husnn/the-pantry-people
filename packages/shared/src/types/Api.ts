@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 
-import { Point } from 'geojson';
 import { CharityDTO, CurrentUserDTO } from '../dto';
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT';
@@ -61,19 +60,46 @@ export interface SignoutRequest extends Request {
 }
 export interface SignoutResponse extends Response {}
 
+export interface UpdateLocationRequest extends Request {
+  method: 'POST';
+  endpoint: '/users/me/location';
+  authentication: 'required';
+  body: {
+    postcode: string;
+  };
+}
+
+export interface UpdateLocationResponse extends Response {
+  user: CurrentUserDTO;
+  expiry: number;
+}
+
 export interface CreateCharityRequest extends Request {
   method: 'POST';
   endpoint: '/charities';
-  authentication: 'none';
+  authentication: 'required';
   body: {
-    email: string;
-    password: string;
-    charityName: string;
+    name: string;
     postcode: string;
   };
 }
 export interface CreateCharityResponse extends Response {
   charity: CharityDTO;
+}
+
+export interface SignupCharityRequest extends Request {
+  method: 'POST';
+  endpoint: '/charities/signup';
+  authentication: 'none';
+  body: {
+    email: string;
+    password: string;
+    name: string;
+    postcode: string;
+  };
+}
+export interface SignupCharityResponse extends Response {
   user: CurrentUserDTO;
   expiry: number;
+  charity: CharityDTO;
 }

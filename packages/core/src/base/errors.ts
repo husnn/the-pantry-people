@@ -1,5 +1,5 @@
 export class WrappedError extends Error {
-  constructor(err: Error, message: string) {
+  constructor(err: Error, message?: string) {
     super();
 
     this.name = Error.name;

@@ -1,9 +1,4 @@
-import {
-  AuthFailureReason,
-  AuthService,
-  UserRepository,
-  WrappedError
-} from '@tpp/core';
+import { AuthFailureReason, AuthService, WrappedError } from '@tpp/core';
 import { LoginResponse, SignupResponse } from '@tpp/shared';
 import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
@@ -14,8 +9,8 @@ import logger from '../logger';
 class AuthController {
   private authService: AuthService;
 
-  constructor(userRepository: UserRepository) {
-    this.authService = new AuthService(userRepository);
+  constructor(authService: AuthService) {
+    this.authService = authService;
   }
 
   async signup(req: Request, res: Response, next: NextFunction) {
@@ -31,7 +26,7 @@ class AuthController {
       if (!result.success)
         throw new WrappedError(result.error, 'Could not sign up user.');
 
-      const { user } = result.data;
+      const user = result.data;
 
       req.session.regenerate((err) => {
         if (err) return next(err);
@@ -43,7 +38,7 @@ class AuthController {
           logger.info(`User ${user.id} signed up.`);
 
           return new HttpResponse<SignupResponse>(res, {
-            user: result.data.user,
+            user,
             expiry: new Date(Date.now() + config.auth.expiry).getTime()
           });
         });
@@ -73,7 +68,7 @@ class AuthController {
         throw new WrappedError(result.error, 'Could not login.');
       }
 
-      const { user } = result.data;
+      const user = result.data;
 
       req.session.regenerate((err) => {
         if (err) return next(err);
@@ -85,7 +80,7 @@ class AuthController {
           logger.info(`User ${user.id} logged in.`);
 
           return new HttpResponse<LoginResponse>(res, {
-            user: result.data.user,
+            user,
             expiry: new Date(Date.now() + config.auth.expiry).getTime()
           });
         });

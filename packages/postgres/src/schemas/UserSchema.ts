@@ -33,6 +33,16 @@ const UserSchema = new EntitySchema<User>({
       name: 'last_login_ip',
       nullable: true
     },
+    address: {
+      type: 'jsonb',
+      nullable: true
+    },
+    coordinates: {
+      type: 'geography',
+      spatialFeatureType: 'Point',
+      srid: 4326,
+      nullable: true
+    },
     preferences: {
       type: 'simple-json',
       nullable: true

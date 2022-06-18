@@ -1,13 +1,17 @@
+import { Address } from '@tpp/shared';
 import bcrypt from 'bcryptjs';
+import { Point } from 'geojson';
 
 export class User {
   id: number;
   dateCreated: Date;
   email: string;
   password: string;
-  lastLogin: Date;
-  lastLoginIP: string;
-  preferences: object;
+  lastLogin?: Date;
+  lastLoginIP?: string;
+  address?: Address;
+  coordinates?: Point;
+  preferences?: object;
 
   constructor(data: Partial<User>) {
     Object.assign(this, data);

@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { useCallback, useEffect } from 'react';
 import { useState } from 'react';
-import { charitysignup } from '../modules/api/auth';
+import { SignupCharity } from '../modules/api/charity';
 import useAuthentication from '../modules/auth/useAuthentication';
 import Bar from '../components/Header';
 
@@ -28,7 +28,7 @@ const Charities = () => {
 
   const onRegister = useCallback(() => {
     setEnabled(false);
-    charitysignup(email, password, charityName, postcode)
+    SignupCharity(email, password, charityName, postcode)
       .then((res) => {
         setAuthentication(res.user, res.expiry);
       })
@@ -36,7 +36,7 @@ const Charities = () => {
         setEnabled(true);
         setError(err.message);
       });
-  }, [email, password, setAuthentication]);
+  }, [email, password, charityName, postcode, setAuthentication]);
 
   useEffect(() => {
     setEnabled(
