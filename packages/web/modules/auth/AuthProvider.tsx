@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   getCurrentUser,
-  isAuthExpired,
   saveAuthExpiry,
   saveCurrentUser,
   shouldUnauthenticate

@@ -1,10 +1,4 @@
-import {
-  GeoLookupFailureReason,
-  GeoService,
-  UserRepository,
-  UserService,
-  WrappedError
-} from '@tpp/core';
+import { GeoLookupFailureReason, UserService, WrappedError } from '@tpp/core';
 import { UpdateLocationResponse } from '@tpp/shared';
 import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
@@ -13,8 +7,8 @@ import { HttpError, HttpResponse, ValidationError } from '../http';
 class UserController {
   private userService: UserService;
 
-  constructor(userRepository: UserRepository, geoService: GeoService) {
-    this.userService = new UserService(userRepository, geoService);
+  constructor(userService: UserService) {
+    this.userService = userService;
   }
 
   async updateLocation(req: Request, res: Response, next: NextFunction) {

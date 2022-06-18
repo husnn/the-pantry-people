@@ -1,4 +1,4 @@
-import { CharityDTO, Coordinates, coordinatesToPoint, ID } from '@tpp/shared';
+import { CharityDTO, coordinatesToPoint, ID } from '@tpp/shared';
 import { Result, WrappedError } from '../base';
 import { Charity } from '../entities';
 import { GeoService } from '../interfaces';
@@ -24,20 +24,18 @@ export class CharityService {
   async create(
     userId: ID,
     name: string,
-    coordinates?: Coordinates
+    postcode: string
   ): Promise<Result<CharityDTO>> {
     try {
       const user = await this.userRepository.get(userId);
       if (!user) return Result.fail();
 
-      const addressLookup = await this.geoService.getAddressFromCoordinates(
-        coordinates
-      );
+      const addressLookup = await this.geoService.lookupPostcodeGB(postcode);
       if (!addressLookup.success)
         return Result.fail(
           new WrappedError(
             addressLookup.error,
-            'Could not lookup address for given coordinates.'
+            'Could not lookup address for given postcode.'
           )
         );
 
@@ -45,7 +43,7 @@ export class CharityService {
         owner: user,
         name,
         address: addressLookup.data,
-        coordinates: coordinatesToPoint(coordinates)
+        coordinates: coordinatesToPoint(addressLookup.data.coordinates)
       } as Charity);
 
       return Result.ok(new CharityDTO(charity));

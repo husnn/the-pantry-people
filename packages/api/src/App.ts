@@ -1,3 +1,4 @@
+import { AuthService, CharityService, UserService } from '@tpp/core';
 import { CharityRepository, UserRepository } from '@tpp/postgres';
 import { authCookieName } from '@tpp/shared';
 import cors from 'cors';
@@ -74,14 +75,20 @@ class App {
     const userRepository = new UserRepository();
     const charityRepository = new CharityRepository();
 
+    const authService = new AuthService(userRepository);
     const geoService = new GeoService();
-
-    const authController = new AuthController(userRepository);
-    const userController = new UserController(userRepository, geoService);
-    const charityController = new CharityController(
+    const userService = new UserService(userRepository, geoService);
+    const charityService = new CharityService(
       userRepository,
       charityRepository,
       geoService
+    );
+
+    const authController = new AuthController(authService);
+    const userController = new UserController(userService);
+    const charityController = new CharityController(
+      authService,
+      charityService
     );
 
     initRoutes(router, authController, userController, charityController);
