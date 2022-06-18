@@ -41,12 +41,22 @@ export class CharityService {
 
       const charity = await this.charityRepository.create({
         owner: user,
+        ownerId: user.id,
         name,
         address: addressLookup.data,
         coordinates: coordinatesToPoint(addressLookup.data.coordinates)
       } as Charity);
 
       return Result.ok(new CharityDTO(charity));
+    } catch (err) {
+      return Result.fail(err);
+    }
+  }
+
+  async listForUser(userId: number): Promise<Result<CharityDTO[]>> {
+    try {
+      const charities = await this.charityRepository.listForUser(userId);
+      return Result.ok(charities.map((c) => new CharityDTO(c)));
     } catch (err) {
       return Result.fail(err);
     }

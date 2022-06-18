@@ -1,5 +1,11 @@
-import { AuthFailureReason, AuthService, WrappedError } from '@tpp/core';
-import { LoginResponse, SignupResponse } from '@tpp/shared';
+import {
+  AuthFailureReason,
+  AuthService,
+  CharityService,
+  Result,
+  WrappedError
+} from '@tpp/core';
+import { CharityDTO, LoginResponse, SignupResponse } from '@tpp/shared';
 import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import config from '../config';
@@ -8,9 +14,11 @@ import logger from '../logger';
 
 class AuthController {
   private authService: AuthService;
+  private charityService: CharityService;
 
-  constructor(authService: AuthService) {
+  constructor(authService: AuthService, charityService: CharityService) {
     this.authService = authService;
+    this.charityService = charityService;
   }
 
   async signup(req: Request, res: Response, next: NextFunction) {
@@ -74,23 +82,50 @@ class AuthController {
 
       const user = result.data;
 
+      const charityResult = await this.getCharityForUser(user.id);
+      if (!charityResult.success) logger.error(charityResult.error);
+
       req.session.regenerate((err) => {
         if (err) return next(err);
 
         req.session.user = user.id;
+        req.session.charity = charityResult.data?.id;
+
         req.session.save((err) => {
           if (err) return next(err);
 
-          logger.info(`User ${user.id} logged in.`);
+          logger.info(
+            `User ${user.id} logged in${
+              req.session.charity ? ` for charity ${req.session.charity}` : ''
+            }.`
+          );
 
           return new HttpResponse<LoginResponse>(res, {
             user,
-            expiry: new Date(Date.now() + config.auth.expiry).getTime()
+            expiry: new Date(Date.now() + config.auth.expiry).getTime(),
+            charity: charityResult.data
           });
         });
       });
     } catch (err) {
       next(err);
+    }
+  }
+
+  async getCharityForUser(
+    userId: number
+  ): Promise<Result<CharityDTO | undefined>> {
+    try {
+      const result = await this.charityService.listForUser(userId);
+      if (!result.success)
+        throw new WrappedError(
+          result.error,
+          'Error listing charities for user.'
+        );
+
+      return Result.ok(result.data.length > 0 ? result.data[0] : undefined);
+    } catch (err) {
+      return Result.fail(err);
     }
   }
 

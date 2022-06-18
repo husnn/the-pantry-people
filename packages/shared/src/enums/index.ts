@@ -1,5 +1,9 @@
 export enum UserRole {
   ADMIN = 'ADMIN',
-  VOLUNTEER = 'VOLUNTEER',
   BENEFICIARY = 'BENEFICIARY'
+}
+
+export enum CharityUserRole {
+  ADMIN = 'ADMIN',
+  VOLUNTEER = 'VOLUNTEER'
 }

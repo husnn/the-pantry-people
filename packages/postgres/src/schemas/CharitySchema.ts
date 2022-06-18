@@ -32,16 +32,6 @@ const CharitySchema = new EntitySchema<Charity>({
       nullable: true
     }
   },
-  relations: {
-    owner: {
-      type: 'many-to-one',
-      target: 'users',
-      joinColumn: {
-        name: 'owner_id',
-        referencedColumnName: 'id'
-      }
-    }
-  },
   indices: [
     {
       columns: ['coordinates'],

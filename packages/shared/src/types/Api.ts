@@ -51,6 +51,7 @@ export interface LoginRequest extends Request {
 export interface LoginResponse extends Response {
   user: CurrentUserDTO;
   expiry: number;
+  charity?: CharityDTO;
 }
 
 export interface SignoutRequest extends Request {

@@ -84,7 +84,7 @@ class App {
       geoService
     );
 
-    const authController = new AuthController(authService);
+    const authController = new AuthController(authService, charityService);
     const userController = new UserController(userService);
     const charityController = new CharityController(
       authService,

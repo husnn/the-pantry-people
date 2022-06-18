@@ -91,6 +91,7 @@ class CharityController {
 
         req.session.user = user.id;
         req.session.charity = charity.id;
+
         req.session.save((err) => {
           if (err) return next(err);
 

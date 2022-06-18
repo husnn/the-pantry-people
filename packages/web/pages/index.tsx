@@ -1,7 +1,10 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import useAuthentication from '../modules/auth/useAuthentication';
 
 const Home: NextPage = () => {
+  useAuthentication(true, true);
+
   return (
     <div>
       <Head>
