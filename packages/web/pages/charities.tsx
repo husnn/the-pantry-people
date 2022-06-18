@@ -15,7 +15,6 @@ import { useCallback, useEffect } from 'react';
 import { useState } from 'react';
 import { signupCharity } from '../modules/api/charity';
 import useAuthentication from '../modules/auth/useAuthentication';
-import Bar from '../components/Header';
 
 const Charities = () => {
   const { setAuthentication } = useAuthentication(false, true);
@@ -50,8 +49,7 @@ const Charities = () => {
   }, [email, password, name, postcode]);
 
   return (
-    <Box>
-      <Bar></Bar>
+    <Container disableGutters>
       <Container maxWidth="xs">
         <h2>Register a FoodBank</h2>
         <p>Create a FoodBank account.</p>
@@ -104,7 +102,7 @@ const Charities = () => {
           Register
         </Button>
       </Container>
-    </Box>
+    </Container>
   );
 };
 

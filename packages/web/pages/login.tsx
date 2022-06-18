@@ -10,7 +10,6 @@ import { useCallback, useEffect } from 'react';
 import { useState } from 'react';
 import { login } from '../modules/api/auth';
 import useAuthentication from '../modules/auth/useAuthentication';
-import Bar from '../components/Header';
 
 const Login = () => {
   const { setAuthentication } = useAuthentication(false, true);
@@ -39,8 +38,7 @@ const Login = () => {
   }, [email, password]);
 
   return (
-    <Box>
-      <Bar></Bar>
+    <Container disableGutters>
       <Container maxWidth="xs">
         <h2>Log into your account</h2>
         <p>Enter your email and password to sign into your account.</p>
@@ -75,7 +73,7 @@ const Login = () => {
           Login
         </Button>
       </Container>
-    </Box>
+    </Container>
   );
 };
 
