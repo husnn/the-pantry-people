@@ -15,6 +15,7 @@ import { useCallback, useEffect } from 'react';
 import { useState } from 'react';
 import { signupCharity } from '../modules/api/charity';
 import useAuthentication from '../modules/auth/useAuthentication';
+import Bar from '../components/Header';
 
 const Charities = () => {
   const { setAuthentication } = useAuthentication(false, true);
@@ -49,10 +50,13 @@ const Charities = () => {
   }, [email, password, name, postcode]);
 
   return (
-    <Container maxWidth="xs">
-      <h2>Register a FoodBank</h2>
-      <p>Create a FoodBank account.</p>
+    <Box>
+      <Bar></Bar>
+      <Container maxWidth="xs">
+        <h2>Register a FoodBank</h2>
+        <p>Create a FoodBank account.</p>
 
+<<<<<<< HEAD
       <TextField
         type="email"
         label="Email address"
@@ -101,6 +105,57 @@ const Charities = () => {
         Register
       </Button>
     </Container>
+=======
+        <TextField
+          type="email"
+          label="Email address"
+          variant="outlined"
+          margin="dense"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          fullWidth
+        />
+        <TextField
+          type="password"
+          label="Password"
+          variant="outlined"
+          margin="dense"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          fullWidth
+        />
+        <TextField
+          type="charityName"
+          label="FoodBank Name"
+          variant="outlined"
+          margin="dense"
+          value={charityName}
+          onChange={(e) => setCharityName(e.target.value)}
+          fullWidth
+        />
+        <TextField
+          type="postcode"
+          label="Postcode"
+          variant="outlined"
+          margin="dense"
+          value={setPostcode}
+          onChange={(e) => setPostcode(e.target.value)}
+          fullWidth
+        />
+        <FormHelperText error>{error}</FormHelperText>
+        <Box sx={{ m: 2 }} />
+        <Button
+          type="submit"
+          variant="contained"
+          onClick={onRegister}
+          disabled={!enabled}
+          fullWidth
+        >
+          Register
+        </Button>
+      </Container>
+    </Box>
+>>>>>>> 95dfc31 (web: Add appBar with logo to pages)
   );
 };
 

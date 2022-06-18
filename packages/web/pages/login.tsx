@@ -10,6 +10,7 @@ import { useCallback, useEffect } from 'react';
 import { useState } from 'react';
 import { login } from '../modules/api/auth';
 import useAuthentication from '../modules/auth/useAuthentication';
+import Bar from '../components/Header';
 
 const Login = () => {
   const { setAuthentication } = useAuthentication(false, true);
@@ -38,40 +39,43 @@ const Login = () => {
   }, [email, password]);
 
   return (
-    <Container maxWidth="xs">
-      <h2>Log into your account</h2>
-      <p>Enter your email and password to sign into your account.</p>
+    <Box>
+      <Bar></Bar>
+      <Container maxWidth="xs">
+        <h2>Log into your account</h2>
+        <p>Enter your email and password to sign into your account.</p>
 
-      <TextField
-        type="email"
-        label="Email address"
-        variant="outlined"
-        margin="dense"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        fullWidth
-      />
-      <TextField
-        type="password"
-        label="Password"
-        variant="outlined"
-        margin="dense"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        fullWidth
-      />
-      <FormHelperText error>{error}</FormHelperText>
-      <Box sx={{ m: 2 }} />
-      <Button
-        type="submit"
-        variant="contained"
-        onClick={onLogin}
-        disabled={!enabled}
-        fullWidth
-      >
-        Login
-      </Button>
-    </Container>
+        <TextField
+          type="email"
+          label="Email address"
+          variant="outlined"
+          margin="dense"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          fullWidth
+        />
+        <TextField
+          type="password"
+          label="Password"
+          variant="outlined"
+          margin="dense"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          fullWidth
+        />
+        <FormHelperText error>{error}</FormHelperText>
+        <Box sx={{ m: 2 }} />
+        <Button
+          type="submit"
+          variant="contained"
+          onClick={onLogin}
+          disabled={!enabled}
+          fullWidth
+        >
+          Login
+        </Button>
+      </Container>
+    </Box>
   );
 };
 
