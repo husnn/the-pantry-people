@@ -5,5 +5,6 @@ export enum AuthFailureReason {
 }
 
 export enum GeoLookupFailureReason {
-  LOCATION_NOT_FOUND = 'LOCATION_NOT_FOUND'
+  LOCATION_NOT_FOUND = 'LOCATION_NOT_FOUND',
+  MISSING_COORDINATES = 'MISSING_COORDINATES'
 }

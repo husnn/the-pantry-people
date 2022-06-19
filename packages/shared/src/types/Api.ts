@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 
-import { CharityDTO, CurrentUserDTO } from '../dto';
+import { CharityDTO, CurrentUserDTO, ListDTO, ListItemDTO } from '../dto';
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT';
 
@@ -105,4 +105,16 @@ export interface SignupCharityResponse extends Response {
   user: CurrentUserDTO;
   expiry: number;
   charity: CharityDTO;
+}
+
+export interface CreateListRequest extends Request {
+  method: 'POST';
+  endpoint: '/lists';
+  authentication: 'required';
+  body: {
+    items: ListItemDTO[];
+  };
+}
+export interface CreateListResponse extends Response {
+  list: ListDTO;
 }

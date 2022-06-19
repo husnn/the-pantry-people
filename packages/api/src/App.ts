@@ -1,5 +1,14 @@
-import { AuthService, CharityService, UserService } from '@tpp/core';
-import { CharityRepository, UserRepository } from '@tpp/postgres';
+import {
+  AuthService,
+  CharityService,
+  ListService,
+  UserService
+} from '@tpp/core';
+import {
+  CharityRepository,
+  ListRepository,
+  UserRepository
+} from '@tpp/postgres';
 import { authCookieName } from '@tpp/shared';
 import cors from 'cors';
 import express, { Application, Router } from 'express';
@@ -8,6 +17,7 @@ import { RedisClientType } from 'redis';
 import config from './config';
 import AuthController from './controllers/AuthController';
 import CharityController from './controllers/CharityController';
+import ListController from './controllers/ListController';
 import UserController from './controllers/UserController';
 import logger, { default as log } from './logger';
 import errorHandler from './middleware/errorHandler';
@@ -74,6 +84,7 @@ class App {
 
     const userRepository = new UserRepository();
     const charityRepository = new CharityRepository();
+    const listRepository = new ListRepository();
 
     const geoService = new GeoService();
     const userService = new UserService(userRepository, geoService);
@@ -81,6 +92,12 @@ class App {
     const charityService = new CharityService(
       userRepository,
       charityRepository,
+      geoService
+    );
+    const listService = new ListService(
+      userRepository,
+      charityRepository,
+      listRepository,
       geoService
     );
 
@@ -94,8 +111,15 @@ class App {
       authService,
       charityService
     );
+    const listController = new ListController(listService);
 
-    initRoutes(router, authController, userController, charityController);
+    initRoutes(
+      router,
+      authController,
+      userController,
+      charityController,
+      listController
+    );
 
     app.use('/v1', router);
 
