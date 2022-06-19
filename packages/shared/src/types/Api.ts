@@ -108,6 +108,16 @@ export interface SignupCharityResponse extends Response {
   charity: CharityDTO;
 }
 
+export interface GetInventoryRequest extends Request {
+  method: 'GET';
+  endpoint: '/items';
+  authentication: 'optional';
+}
+
+export interface GetInventoryResponse extends Response {
+  items: Item[];
+}
+
 export interface CreateListRequest extends Request {
   method: 'POST';
   endpoint: '/lists';

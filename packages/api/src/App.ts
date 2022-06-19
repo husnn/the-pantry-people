@@ -18,6 +18,7 @@ import { RedisClientType } from 'redis';
 import config from './config';
 import AuthController from './controllers/AuthController';
 import CharityController from './controllers/CharityController';
+import InventoryController from './controllers/InventoryController';
 import ListController from './controllers/ListController';
 import UserController from './controllers/UserController';
 import logger, { default as log } from './logger';
@@ -114,13 +115,18 @@ class App {
       charityService
     );
     const listController = new ListController(listService, inventoryService);
+    const inventoryController = new InventoryController(
+      listService,
+      inventoryService
+    );
 
     initRoutes(
       router,
       authController,
       userController,
       charityController,
-      listController
+      listController,
+      inventoryController
     );
 
     app.use('/v1', router);
