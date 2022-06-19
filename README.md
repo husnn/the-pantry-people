@@ -1,5 +1,27 @@
 # The Pantry People
 
+A SaaS platform for people to request necessities, and for nearby food banks to fulfill those needs.
+
+Live: https://the-pantry-people.vercel.app/
+
+Dev: https://the-pantry-people-dev.vercel.app/
+
+### Features
+
+- [x] Sign up as a beneficiary, volunteer or as an admin of a new food bank
+- [x] Beneficiaries can create lists of required items
+- [x] Nearby food banks can pick up lists issued within 3 miles of their location
+- [x] Kanban-style dashboard for food banks to view pending and fulfilled lists
+
+Ongoing:
+- [ ] UI/UX improvement and polishing
+- [ ] Allow admins to invite volunteers to join an existing food bank
+
+Future plans:
+- [ ] View most requested items in an area
+- [ ] Give scheduled (temporary) access to volunteers
+- [ ] Automatic ordering of items from retailers 
+ 
 ## How to run
 
 ### Requirements
