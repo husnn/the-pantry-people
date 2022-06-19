@@ -6,7 +6,12 @@ import {
   UserService,
   WrappedError
 } from '@tpp/core';
-import { CharityDTO, LoginResponse, SignupResponse } from '@tpp/shared';
+import {
+  CharityDTO,
+  LoginResponse,
+  SignupResponse,
+  UserRole
+} from '@tpp/shared';
 import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import config from '../config';
@@ -116,6 +121,8 @@ class AuthController {
               req.session.charity ? ` for charity ${req.session.charity}` : ''
             }.`
           );
+
+          if (req.session.charity) user.role = UserRole.ADMIN;
 
           return new HttpResponse<LoginResponse>(res, {
             user,

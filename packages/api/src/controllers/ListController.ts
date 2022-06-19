@@ -1,5 +1,6 @@
 import { InventoryService, ListService, WrappedError } from '@tpp/core';
 import {
+  CloseListResponse,
   CreateListResponse,
   FulfillListResponse,
   GetOwnListsResponse,
@@ -94,6 +95,23 @@ class ListController {
         );
 
       return new HttpResponse<FulfillListResponse>(res, { list: result.data });
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async close(req: Request, res: Response, next: NextFunction) {
+    try {
+      if (!validationResult(req).isEmpty()) throw new ValidationError();
+
+      const result = await this.listService.close(
+        req.session.charity,
+        parseInt(req.params.id)
+      );
+      if (!result.success)
+        throw new WrappedError(result.error, 'Could not close list.');
+
+      return new HttpResponse<CloseListResponse>(res, { list: result.data });
     } catch (err) {
       next(err);
     }

@@ -8,7 +8,8 @@ import {
 import {
   CreateCharityResponse,
   GetSummaryForCharityResponse,
-  SignupCharityResponse
+  SignupCharityResponse,
+  UserRole
 } from '@tpp/shared';
 import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
@@ -78,7 +79,8 @@ class CharityController {
       const signupResult = await this.authService.signup(
         email,
         password,
-        req.ip
+        req.ip,
+        postcode
       );
       if (!signupResult.success) {
         if (signupResult.reason == AuthFailureReason.EMAIL_ALREADY_EXISTS)
@@ -113,6 +115,8 @@ class CharityController {
 
           logger.info(`User ${user.id} signed up with charity ${charity.id}.`);
 
+          user.role = UserRole.ADMIN;
+
           return new HttpResponse<SignupCharityResponse>(res, {
             user,
             expiry: new Date(Date.now() + config.auth.expiry).getTime(),
@@ -131,7 +135,7 @@ class CharityController {
       if (!charityId) throw new AuthorizationError();
 
       const result = await this.listService.listForCharity(charityId);
-      if (!result)
+      if (!result.success)
         throw new WrappedError(
           result.error,
           'Could not get lists for charity.'
@@ -140,9 +144,7 @@ class CharityController {
       const { available, processing, completed } = result.data;
 
       return new HttpResponse<GetSummaryForCharityResponse>(res, {
-        available,
-        processing,
-        completed
+        body: { available, processing, completed }
       });
     } catch (err) {
       next(err);

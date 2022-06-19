@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 
 import { AssignedListDTO, CharityDTO, CurrentUserDTO, ListDTO } from '../dto';
+import { CharitySummary } from './CharitySummary';
 import { Item } from './Item';
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT';
@@ -136,9 +137,7 @@ export interface GetSummaryForCharityRequest extends Request {
   authentication: 'required';
 }
 export interface GetSummaryForCharityResponse extends Response {
-  available: ListDTO[];
-  processing: AssignedListDTO[];
-  completed: AssignedListDTO[];
+  body: CharitySummary;
 }
 
 export interface PickupListRequest extends Request {
@@ -154,6 +153,14 @@ export interface FulfillListRequest extends Request {
   authentication: 'required';
 }
 export interface FulfillListResponse extends Response {
+  list: AssignedListDTO;
+}
+
+export interface CloseListRequest extends Request {
+  method: 'POST';
+  authentication: 'required';
+}
+export interface CloseListResponse extends Response {
   list: AssignedListDTO;
 }
 

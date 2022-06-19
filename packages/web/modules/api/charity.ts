@@ -25,11 +25,10 @@ export const signupCharity = (
   });
 
 export const getSummaryForCharity = () =>
-  ApiClient().request<
-    GetSummaryForCharityResponse,
-    GetSummaryForCharityRequest
-  >({
-    method: 'GET',
-    endpoint: '/charities/summary',
-    authentication: 'required'
-  });
+  ApiClient()
+    .request<GetSummaryForCharityResponse, GetSummaryForCharityRequest>({
+      method: 'GET',
+      endpoint: '/charities/summary',
+      authentication: 'required'
+    })
+    .then((res) => res.body);

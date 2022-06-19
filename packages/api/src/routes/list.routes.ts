@@ -39,5 +39,13 @@ export default function init(listController: ListController): Router {
       listController.complete(req, res, next)
   );
 
+  router.post(
+    '/:id/close',
+    param('id').exists().isInt(),
+    authMiddleware,
+    (req: Request, res: Response, next: NextFunction) =>
+      listController.close(req, res, next)
+  );
+
   return router;
 }

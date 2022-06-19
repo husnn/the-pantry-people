@@ -14,6 +14,8 @@ import useAuthentication from '../../modules/auth/useAuthentication';
 const Signup = () => {
   const { setAuthentication } = useAuthentication(false, true);
 
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [postcode, setPostcode] = useState('');
@@ -23,7 +25,7 @@ const Signup = () => {
 
   const onRegister = useCallback(() => {
     setEnabled(false);
-    signup(email, password, postcode)
+    signup(firstName, lastName, email, password, postcode)
       .then((res) => {
         setAuthentication(res.user, res.expiry);
       })
@@ -31,7 +33,7 @@ const Signup = () => {
         setEnabled(true);
         setError(err.message);
       });
-  }, [email, password, postcode, setAuthentication]);
+  }, [firstName, lastName, email, password, postcode, setAuthentication]);
 
   useEffect(() => {
     setEnabled(isEmailAddress(email) && isValidPassword(password));
@@ -45,6 +47,26 @@ const Signup = () => {
         <p>Create an account using an email and a password.</p>
 
         <form>
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            <TextField
+              type="fname"
+              label="First name"
+              variant="outlined"
+              margin="dense"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              fullWidth
+            />
+            <TextField
+              type="lname"
+              label="Last name"
+              variant="outlined"
+              margin="dense"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              fullWidth
+            />
+          </Box>
           <TextField
             type="email"
             label="Email address"

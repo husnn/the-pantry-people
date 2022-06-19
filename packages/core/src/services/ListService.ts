@@ -9,7 +9,7 @@ import {
   UserRepository
 } from '../repositories';
 import { listBroadcastRadius } from '../utils';
-import { GeoLookupFailureReason } from './errors';
+import { GeoLookupFailureReason, ListUpdateFailureReason } from './errors';
 
 export class ListService {
   private userRepository: UserRepository;
@@ -116,9 +116,9 @@ export class ListService {
   ): Promise<Result<AssignedListDTO>> {
     try {
       let list = await this.listRepository.get(listId);
-      if (!list || list.charityId != charityId)
-        throw new Error('Could not find given list.');
+      if (!list) throw new Error('Could not find given list.');
 
+      list.charityId = charityId;
       list.status = ListState.PROCESSING;
 
       list = await this.listRepository.update(list);
@@ -139,6 +139,33 @@ export class ListService {
         throw new Error('Could not find given list.');
 
       list.status = ListState.FULFILLED;
+
+      list = await this.listRepository.update(list);
+
+      return Result.ok(new AssignedListDTO(list));
+    } catch (err) {
+      return Result.fail(err);
+    }
+  }
+
+  async close(
+    charityId: number,
+    listId: number
+  ): Promise<Result<AssignedListDTO>> {
+    try {
+      let list = await this.listRepository.get(listId);
+      if (!list || list.charityId != charityId)
+        throw new Error('Could not find given list.');
+      if (
+        list.status != ListState.FULFILLED &&
+        list.status != ListState.PARTLY_FULFILLED
+      )
+        return Result.fail(
+          new Error('Wrong state.'),
+          ListUpdateFailureReason.ILLEGAL_STATE_CHANGE
+        );
+
+      list.status = ListState.CLOSED;
 
       list = await this.listRepository.update(list);
 
