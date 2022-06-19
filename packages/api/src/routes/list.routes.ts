@@ -8,9 +8,9 @@ export default function init(listController: ListController): Router {
 
   router.post(
     '/',
-    body('items').isArray({ min: 1 }),
-    body('items.*.name').isString().notEmpty().trim(),
-    body('items.*.quantity').isInt({ min: 1, max: 10 }).optional(),
+    body('items').exists().isArray({ min: 1 }),
+    body('items.*.id').exists().isInt(),
+    body('items.*.quantity').optional().isInt({ min: 1, max: 10 }),
     authMiddleware,
     (req: Request, res: Response, next: NextFunction) =>
       listController.create(req, res, next)

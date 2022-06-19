@@ -1,11 +1,11 @@
 export class ListItemDTO {
   id: number;
-  name: string;
+  label: string;
   quantity: number;
 
   constructor(data: Partial<ListItemDTO>) {
     this.id = data.id;
-    this.name = data.name;
+    this.label = data.label;
     this.quantity = data.quantity;
   }
 }

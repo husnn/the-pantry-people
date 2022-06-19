@@ -1,6 +1,7 @@
 import {
   AuthService,
   CharityService,
+  InventoryService,
   ListService,
   UserService
 } from '@tpp/core';
@@ -100,6 +101,7 @@ class App {
       listRepository,
       geoService
     );
+    const inventoryService = new InventoryService();
 
     const authController = new AuthController(
       authService,
@@ -111,7 +113,7 @@ class App {
       authService,
       charityService
     );
-    const listController = new ListController(listService);
+    const listController = new ListController(listService, inventoryService);
 
     initRoutes(
       router,

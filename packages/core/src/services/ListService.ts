@@ -1,7 +1,7 @@
-import { ListDTO, ListItemDTO } from '@tpp/shared';
+import { Item, ListDTO } from '@tpp/shared';
 import circleToPolygon from 'circle-to-polygon';
 import { Result } from '../base';
-import { List } from '../entities';
+import { List, ListItem } from '../entities';
 import { GeoService } from '../interfaces';
 import {
   CharityRepository,
@@ -31,10 +31,7 @@ export class ListService {
     this.geoService = geoService;
   }
 
-  async create(
-    beneficiaryId: number,
-    items: ListItemDTO[]
-  ): Promise<Result<ListDTO>> {
+  async create(beneficiaryId: number, items: Item[]): Promise<Result<ListDTO>> {
     try {
       const beneficiary = await this.userRepository.get(beneficiaryId);
       if (!beneficiary) return Result.fail();
@@ -43,7 +40,13 @@ export class ListService {
 
       const list = await this.listRepository.create({
         beneficiaryId,
-        items,
+        items: items.map(
+          (i) =>
+            new ListItem({
+              label: i.label,
+              quantity: i.quantity
+            })
+        ),
         area: circleToPolygon(
           beneficiary.coordinates.coordinates,
           listBroadcastRadius

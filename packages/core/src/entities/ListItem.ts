@@ -6,7 +6,7 @@ export class ListItem {
   listId: number;
   list: List;
 
-  name: string;
+  label: string;
   quantity: number;
 
   unavailable?: boolean;

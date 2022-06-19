@@ -13,7 +13,7 @@ const ListItemSchema = new EntitySchema<ListItem>({
       type: 'integer',
       name: 'list_id'
     },
-    name: {
+    label: {
       type: 'text'
     },
     quantity: {

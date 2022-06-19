@@ -3,7 +3,8 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "dist",
-    "composite": true
+    "composite": true,
+    "resolveJsonModule": true
   },
   "references": [
     {
@@ -13,5 +14,5 @@
       "path": "../emails"
     }
   ],
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "src/services/inventory.json"]
 }

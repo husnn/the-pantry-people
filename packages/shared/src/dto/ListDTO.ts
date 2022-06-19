@@ -8,7 +8,7 @@ export class ListDTO {
 
   constructor(data: Partial<ListDTO>) {
     this.id = data.id;
-    assignIfNotNull<ListItemDTO>(this, data.items, 'name');
+    assignIfNotNull<ListDTO>(this, data, 'name');
     this.items = data.items?.map((i) => new ListItemDTO(i));
   }
 }
