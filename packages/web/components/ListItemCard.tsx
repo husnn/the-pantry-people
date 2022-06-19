@@ -1,4 +1,4 @@
-import { Card } from '@mui/material';
+import { Button, Card, CardContent } from '@mui/material';
 
 type ListItemCardProps = {
   firstName: string;
@@ -13,8 +13,14 @@ export const listItemCard = ({
 }: ListItemCardProps) => {
   return (
     <div>
-      <Card variant="outlined" sx={{ minWidth: 250, my: 5, minHeight: 300 }}>
-        hellos
+      <Card variant="outlined" sx={{ minWidth: 275, my: 5 }}>
+        <CardContent>
+          <p>
+            {firstName} {lastName}{' '}
+          </p>
+          <p>{items.length} items</p>
+          <Button></Button>
+        </CardContent>
       </Card>
     </div>
   );
