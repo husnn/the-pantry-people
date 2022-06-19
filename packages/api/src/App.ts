@@ -112,7 +112,8 @@ class App {
     const userController = new UserController(userService);
     const charityController = new CharityController(
       authService,
-      charityService
+      charityService,
+      listService
     );
     const listController = new ListController(listService, inventoryService);
     const inventoryController = new InventoryController(

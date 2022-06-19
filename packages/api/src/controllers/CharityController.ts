@@ -2,22 +2,38 @@ import {
   AuthFailureReason,
   AuthService,
   CharityService,
+  ListService,
   WrappedError
 } from '@tpp/core';
-import { CreateCharityResponse, SignupCharityResponse } from '@tpp/shared';
+import {
+  CreateCharityResponse,
+  GetSummaryForCharityResponse,
+  SignupCharityResponse
+} from '@tpp/shared';
 import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import config from '../config';
-import { HttpError, HttpResponse, ValidationError } from '../http';
+import {
+  AuthorizationError,
+  HttpError,
+  HttpResponse,
+  ValidationError
+} from '../http';
 import logger from '../logger';
 
 class CharityController {
   private authService: AuthService;
   private charityService: CharityService;
+  private listService: ListService;
 
-  constructor(authService: AuthService, charityService: CharityService) {
+  constructor(
+    authService: AuthService,
+    charityService: CharityService,
+    listService: ListService
+  ) {
     this.authService = authService;
     this.charityService = charityService;
+    this.listService = listService;
   }
 
   async create(req: Request, res: Response, next: NextFunction) {
@@ -103,6 +119,30 @@ class CharityController {
             charity
           });
         });
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async getSummary(req: Request, res: Response, next: NextFunction) {
+    try {
+      const charityId = req.session.charity;
+      if (!charityId) throw new AuthorizationError();
+
+      const result = await this.listService.listForCharity(charityId);
+      if (!result)
+        throw new WrappedError(
+          result.error,
+          'Could not get lists for charity.'
+        );
+
+      const { available, processing, completed } = result.data;
+
+      return new HttpResponse<GetSummaryForCharityResponse>(res, {
+        available,
+        processing,
+        completed
       });
     } catch (err) {
       next(err);

@@ -26,5 +26,12 @@ export default function init(charityController: CharityController): Router {
       charityController.signup(req, res, next)
   );
 
+  router.get(
+    '/summary',
+    authMiddleware,
+    (req: Request, res: Response, next: NextFunction) =>
+      charityController.getSummary(req, res, next)
+  );
+
   return router;
 }

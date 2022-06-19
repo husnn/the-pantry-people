@@ -19,6 +19,15 @@ export class ListRepository
       .setParameter('point', JSON.stringify(point))
       .getMany();
   }
+
+  listByCharity(charityId: number): Promise<List[]> {
+    return this.db
+      .createQueryBuilder('list')
+      .leftJoinAndSelect('list.items', 'items')
+      .leftJoinAndSelect('list.beneficiary', 'beneficiary')
+      .where('list.charity_id = :charityId', { charityId })
+      .getMany();
+  }
 }
 
 export default ListRepository;

@@ -1,4 +1,4 @@
-import { Item, ListDTO } from '@tpp/shared';
+import { AssignedListDTO, Item, ListDTO, ListState } from '@tpp/shared';
 import circleToPolygon from 'circle-to-polygon';
 import { Result } from '../base';
 import { List, ListItem } from '../entities';
@@ -59,18 +59,38 @@ export class ListService {
     }
   }
 
-  async listForCharity(charityId: number): Promise<Result<ListDTO[]>> {
+  async listForCharity(charityId: number): Promise<
+    Result<{
+      available: ListDTO[];
+      processing: AssignedListDTO[];
+      completed: AssignedListDTO[];
+    }>
+  > {
     try {
       const charity = await this.charityRepository.get(charityId);
       if (!charity) return Result.fail();
       if (!charity.coordinates)
         return Result.fail(null, GeoLookupFailureReason.MISSING_COORDINATES);
 
-      const lists = await this.listRepository.listWithinArea(
+      const available = await this.listRepository.listWithinArea(
         charity.coordinates
       );
 
-      return Result.ok(lists.map((l) => new ListDTO(l)));
+      const assigned = await this.listRepository.listByCharity(charity.id);
+
+      return Result.ok({
+        available: available.map((i) => new ListDTO(i)),
+        processing: assigned
+          .filter((i) => i.status == ListState.PROCESSING)
+          .map((i) => new AssignedListDTO(i)),
+        completed: assigned
+          .filter(
+            (i) =>
+              i.status == ListState.FULFILLED ||
+              i.status == ListState.PARTLY_FULFILLED
+          )
+          .map((i) => new AssignedListDTO(i))
+      });
     } catch (err) {
       console.log(err);
       return Result.fail(err);
