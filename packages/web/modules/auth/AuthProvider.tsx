@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   getCurrentUser,
+  removeAuth,
   saveAuthExpiry,
   saveCurrentUser,
   shouldUnauthenticate
@@ -30,6 +31,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const clearAuth = useCallback(() => {
     setAuthenticated(false);
     setCurrentUser(undefined);
+    removeAuth();
   }, []);
 
   useEffect(() => {

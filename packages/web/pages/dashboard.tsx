@@ -1,5 +1,4 @@
 import {
-  Button,
   Container,
   Grid,
   Box,
@@ -7,7 +6,6 @@ import {
   Card,
   Typography
 } from '@mui/material';
-import { signout } from '../modules/api/auth';
 import useAuthentication from '../modules/auth/useAuthentication';
 import NewList from '../components/NewList';
 import ListHistory from '../components/ListHistory';
@@ -17,10 +15,6 @@ const Dashboard = () => {
 
   return (
     <Container disableGutters maxWidth="md">
-      <div>
-        <Button onClick={signout}>Signout</Button>
-      </div>
-
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={3}>
           <Grid item xs>
