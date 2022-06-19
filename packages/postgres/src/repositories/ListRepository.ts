@@ -1,4 +1,5 @@
 import { List, ListRepository as IListRepository } from '@tpp/core';
+import { ID } from '@tpp/shared';
 import { Point } from 'geojson';
 import ListSchema from '../schemas/ListSchema';
 import Repository from './Repository';
@@ -9,6 +10,15 @@ export class ListRepository
 {
   constructor() {
     super(ListSchema);
+  }
+
+  async update(item: Partial<List> & { id: ID }): Promise<List> {
+    return this.db.save(item).then((i) => {
+      return this.db.findOne({
+        where: { id: item.id },
+        relations: ['beneficiary']
+      });
+    });
   }
 
   listWithinArea(point: Point): Promise<List[]> {

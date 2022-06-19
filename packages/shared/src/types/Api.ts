@@ -140,3 +140,19 @@ export interface GetSummaryForCharityResponse extends Response {
   processing: AssignedListDTO[];
   completed: AssignedListDTO[];
 }
+
+export interface PickupListRequest extends Request {
+  method: 'POST';
+  authentication: 'required';
+}
+export interface PickupListResponse extends Response {
+  list: AssignedListDTO;
+}
+
+export interface FulfillListRequest extends Request {
+  method: 'POST';
+  authentication: 'required';
+}
+export interface FulfillListResponse extends Response {
+  list: AssignedListDTO;
+}

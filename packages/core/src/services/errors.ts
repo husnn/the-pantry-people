@@ -8,3 +8,7 @@ export enum GeoLookupFailureReason {
   LOCATION_NOT_FOUND = 'LOCATION_NOT_FOUND',
   MISSING_COORDINATES = 'MISSING_COORDINATES'
 }
+
+export enum ListUpdateFailureReason {
+  ILLEGAL_STATE_CHANGE = 'ILLEGAL_STATE_CHANGE'
+}

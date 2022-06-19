@@ -96,5 +96,43 @@ export class ListService {
       return Result.fail(err);
     }
   }
+
+  async pickup(
+    charityId: number,
+    listId: number
+  ): Promise<Result<AssignedListDTO>> {
+    try {
+      let list = await this.listRepository.get(listId);
+      if (!list || list.charityId != charityId)
+        throw new Error('Could not find given list.');
+
+      list.status = ListState.PROCESSING;
+
+      list = await this.listRepository.update(list);
+
+      return Result.ok(new AssignedListDTO(list));
+    } catch (err) {
+      return Result.fail(err);
+    }
+  }
+
+  async fulfill(
+    charityId: number,
+    listId: number
+  ): Promise<Result<AssignedListDTO>> {
+    try {
+      let list = await this.listRepository.get(listId);
+      if (!list || list.charityId != charityId)
+        throw new Error('Could not find given list.');
+
+      list.status = ListState.FULFILLED;
+
+      list = await this.listRepository.update(list);
+
+      return Result.ok(new AssignedListDTO(list));
+    } catch (err) {
+      return Result.fail(err);
+    }
+  }
 }
 export default ListService;
