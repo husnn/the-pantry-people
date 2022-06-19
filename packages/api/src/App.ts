@@ -67,7 +67,7 @@ class App {
         resave: false,
         saveUninitialized: false,
         cookie: {
-          sameSite: 'none',
+          sameSite: config.app.isSecure ? 'none' : 'lax',
           secure: config.app.isSecure,
           maxAge: config.auth.expiry
         }
