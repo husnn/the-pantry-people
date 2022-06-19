@@ -78,7 +78,7 @@ const Login = () => {
         </form>
       </Container>
       <Container maxWidth="xs">
-        <p>Don't have an account? Register below</p>
+        <p>Don&apos;t have an account? Register below</p>
         <Link href={signupUrl}>Register as a benificiary</Link>
         <Box sx={{ m: 2 }} />
         <Link href={charitySignupUrl}>Register as a FoodBank</Link>
