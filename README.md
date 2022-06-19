@@ -3,6 +3,10 @@
 A SaaS platform for people to request necessities, and for nearby food banks to fulfill those needs.
 
 Live: https://the-pantry-people.vercel.app/
+- `Beneficiary login`
+  - Email: test+beneficiary@tpp.com Password: testing123
+- `Food bank login`
+  - Email: test+charity@tpp.com Password: testing123
 
 Dev: https://the-pantry-people-dev.vercel.app/
 
