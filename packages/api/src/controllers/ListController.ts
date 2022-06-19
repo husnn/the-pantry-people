@@ -2,6 +2,7 @@ import { InventoryService, ListService, WrappedError } from '@tpp/core';
 import {
   CreateListResponse,
   FulfillListResponse,
+  GetOwnListsResponse,
   Item,
   PickupListResponse
 } from '@tpp/shared';
@@ -39,6 +40,20 @@ class ListController {
         throw new WrappedError(result.error, 'Could not create list.');
 
       return new HttpResponse<CreateListResponse>(res, { list: result.data });
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async getOwnLists(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await this.listService.listForUser(req.session.user);
+      if (!result.success)
+        throw new WrappedError(result.error, 'Could not get lists.');
+
+      return new HttpResponse<GetOwnListsResponse>(res, {
+        lists: result.data
+      });
     } catch (err) {
       next(err);
     }

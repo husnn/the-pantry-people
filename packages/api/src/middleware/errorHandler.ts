@@ -15,9 +15,9 @@ function errorHandler(
   res: ExpressResponse,
   next: NextFunction
 ) {
-  logger.error(err.message);
+  logger.error(err?.message);
 
-  if (isDev) console.error(err.stack);
+  if (isDev) console.error(err?.stack);
 
   const error: HttpError = err instanceof HttpError ? err : new HttpError();
 

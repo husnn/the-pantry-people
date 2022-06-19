@@ -36,7 +36,10 @@ export class ListService {
       const beneficiary = await this.userRepository.get(beneficiaryId);
       if (!beneficiary) return Result.fail();
       if (!beneficiary.coordinates)
-        return Result.fail(null, GeoLookupFailureReason.MISSING_COORDINATES);
+        return Result.fail(
+          new Error('Missing coordinates.'),
+          GeoLookupFailureReason.MISSING_COORDINATES
+        );
 
       const list = await this.listRepository.create({
         beneficiaryId,
@@ -91,6 +94,16 @@ export class ListService {
           )
           .map((i) => new AssignedListDTO(i))
       });
+    } catch (err) {
+      console.log(err);
+      return Result.fail(err);
+    }
+  }
+
+  async listForUser(userId: number): Promise<Result<ListDTO[]>> {
+    try {
+      const lists = await this.listRepository.listByBeneficiary(userId);
+      return Result.ok(lists.map((l) => new ListDTO(l)));
     } catch (err) {
       console.log(err);
       return Result.fail(err);

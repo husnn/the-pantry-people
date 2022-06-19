@@ -11,7 +11,6 @@ export class ListRepository
   constructor() {
     super(ListSchema);
   }
-
   async update(item: Partial<List> & { id: ID }): Promise<List> {
     return this.db.save(item).then((i) => {
       return this.db.findOne({
@@ -36,6 +35,14 @@ export class ListRepository
       .leftJoinAndSelect('list.items', 'items')
       .leftJoinAndSelect('list.beneficiary', 'beneficiary')
       .where('list.charity_id = :charityId', { charityId })
+      .getMany();
+  }
+
+  listByBeneficiary(userId: number): Promise<List[]> {
+    return this.db
+      .createQueryBuilder('list')
+      .leftJoinAndSelect('list.items', 'items')
+      .where('list.beneficiary_id = :userId', { userId })
       .getMany();
   }
 }

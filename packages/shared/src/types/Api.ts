@@ -156,3 +156,12 @@ export interface FulfillListRequest extends Request {
 export interface FulfillListResponse extends Response {
   list: AssignedListDTO;
 }
+
+export interface GetOwnListsRequests extends Request {
+  method: 'GET';
+  endpoint: '/lists';
+  authentication: 'required';
+}
+export interface GetOwnListsResponse extends Response {
+  lists: ListDTO[];
+}

@@ -16,6 +16,13 @@ export default function init(listController: ListController): Router {
       listController.create(req, res, next)
   );
 
+  router.get(
+    '/',
+    authMiddleware,
+    (req: Request, res: Response, next: NextFunction) =>
+      listController.getOwnLists(req, res, next)
+  );
+
   router.post(
     '/:id/pickup',
     param('id').exists().isInt(),
