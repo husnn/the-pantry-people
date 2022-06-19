@@ -1,18 +1,17 @@
-import { Button, Container, Grid, Box } from '@mui/material';
+import {
+  Button,
+  Container,
+  Grid,
+  Box,
+  CardContent,
+  Card,
+  Typography
+} from '@mui/material';
 import { signout } from '../modules/api/auth';
 import useAuthentication from '../modules/auth/useAuthentication';
 import { Add } from '@mui/icons-material';
 import NewList from '../components/NewList';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary
-}));
+import ListHistory from '../components/ListHistory';
 
 const Dashboard = () => {
   useAuthentication(true);
@@ -26,20 +25,31 @@ const Dashboard = () => {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={3}>
           <Grid item xs>
-            <Button
-              // onClick={showNewList}
-              variant="contained"
-              color="success"
-              startIcon={<Add />}
-            >
-              Make a new list request
-            </Button>
-
             <NewList></NewList>
           </Grid>
 
           <Grid item xs>
-            <Item>xs</Item>
+            <Card variant="outlined" sx={{ minWidth: 275, my: 5 }}>
+              <Grid
+                container
+                spacing={0}
+                direction="column"
+                alignItems="center"
+                justifyContent="center"
+                // style={{ minHeight: '10vh' }}
+              >
+                <CardContent>
+                  <Typography
+                    sx={{ fontSize: 20, mx: 10, mb: 2 }}
+                    color="text.secondary"
+                    gutterBottom
+                  >
+                    Your List History
+                  </Typography>
+                  <ListHistory />
+                </CardContent>
+              </Grid>
+            </Card>
           </Grid>
         </Grid>
       </Box>
