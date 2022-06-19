@@ -6,7 +6,7 @@ type ListItemCardProps = {
   items: string;
 };
 
-export const listItemCard = ({
+export const ListItemCard = ({
   firstName,
   lastName,
   items
@@ -19,11 +19,11 @@ export const listItemCard = ({
             {firstName} {lastName}{' '}
           </p>
           <p>{items.length} items</p>
-          <Button></Button>
+          <Button>Select</Button>
         </CardContent>
       </Card>
     </div>
   );
 };
 
-export default ListItemCardProps;
+export default ListItemCard;
