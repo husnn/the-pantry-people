@@ -4,12 +4,14 @@ import {
   Button,
   Container,
   FormHelperText,
+  Link,
   TextField
 } from '@mui/material';
 import { useCallback, useEffect } from 'react';
 import { useState } from 'react';
 import { login } from '../modules/api/auth';
 import useAuthentication from '../modules/auth/useAuthentication';
+import { charitySignupUrl, signupUrl } from '../utils/links';
 
 const Login = () => {
   const { setAuthentication } = useAuthentication(false, true);
@@ -74,6 +76,12 @@ const Login = () => {
             Login
           </Button>
         </form>
+      </Container>
+      <Container maxWidth="xs">
+        <p>Don't have an account? Register below</p>
+        <Link href={signupUrl}>Register as a benificiary</Link>
+        <Box sx={{ m: 2 }} />
+        <Link href={charitySignupUrl}>Register as a FoodBank</Link>
       </Container>
     </Container>
   );
