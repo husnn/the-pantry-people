@@ -1,11 +1,7 @@
-import {
-  CreateListRequest,
-  CreateListResponse,
-  ListItemDTO
-} from '@tpp/shared';
+import { CreateListRequest, CreateListResponse, Item } from '@tpp/shared';
 import { ApiClient } from '../http';
 
-export const createList = (items: ListItemDTO[]) =>
+export const createList = (items: Item[]) =>
   ApiClient().request<CreateListResponse, CreateListRequest>({
     method: 'POST',
     endpoint: '/lists',
