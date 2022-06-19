@@ -2,8 +2,6 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
 import Chip from '@mui/material/Chip';
-import * as React from 'react';
-import { useState } from 'react';
 
 const ListHistory = () => {
   const dummyData = [
@@ -25,8 +23,8 @@ const ListHistory = () => {
 
   return (
     <div>
-      {dummyData.map(({ listNum, length, location, items, status }) => (
-        <Card variant="outlined" sx={{ minWidth: 275, my: 5 }}>
+      {dummyData.map(({ listNum, length, location, status }, i) => (
+        <Card key={i} variant="outlined" sx={{ minWidth: 275, my: 5 }}>
           <CardContent>
             <p>List #{listNum}</p>
             <p>{length} items</p>

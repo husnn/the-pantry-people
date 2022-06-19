@@ -9,7 +9,6 @@ import {
 } from '@mui/material';
 import { signout } from '../modules/api/auth';
 import useAuthentication from '../modules/auth/useAuthentication';
-import { Add } from '@mui/icons-material';
 import NewList from '../components/NewList';
 import ListHistory from '../components/ListHistory';
 
