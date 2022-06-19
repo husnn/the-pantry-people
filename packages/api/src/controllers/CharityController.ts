@@ -8,7 +8,8 @@ import {
 import {
   CreateCharityResponse,
   GetSummaryForCharityResponse,
-  SignupCharityResponse
+  SignupCharityResponse,
+  UserRole
 } from '@tpp/shared';
 import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
@@ -78,7 +79,8 @@ class CharityController {
       const signupResult = await this.authService.signup(
         email,
         password,
-        req.ip
+        req.ip,
+        postcode
       );
       if (!signupResult.success) {
         if (signupResult.reason == AuthFailureReason.EMAIL_ALREADY_EXISTS)
@@ -112,6 +114,8 @@ class CharityController {
           if (err) return next(err);
 
           logger.info(`User ${user.id} signed up with charity ${charity.id}.`);
+
+          user.role = UserRole.ADMIN;
 
           return new HttpResponse<SignupCharityResponse>(res, {
             user,

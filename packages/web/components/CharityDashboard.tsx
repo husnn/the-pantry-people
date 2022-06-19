@@ -1,13 +1,10 @@
 import { Container, Grid, Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
-import useAuthentication from '../modules/auth/useAuthentication';
 import ListItemCard from '../components/ListItemCard';
 import { getSummaryForCharity } from '../modules/api/charity';
 import { CharitySummary, ListDTO, ListState } from '@tpp/shared';
 
-const Discover = () => {
-  useAuthentication(true);
-
+const CharityDashboard = () => {
   const [summary, setSummary] = useState<CharitySummary>({
     available: [],
     processing: [],
@@ -24,8 +21,6 @@ const Discover = () => {
     return lists;
   };
 
-  useEffect(() => console.log(summary), [summary]);
-
   const ListColumn = ({
     title,
     collection
@@ -34,7 +29,7 @@ const Discover = () => {
     collection?: ListDTO[];
   }) => {
     return collection ? (
-      <Grid xs={12} md={3}>
+      <Grid xs={10} md={3} sx={{ px: 1 }}>
         <h3>{title}</h3>
         <Stack>
           {collection.map((list) => (
@@ -66,7 +61,13 @@ const Discover = () => {
 
   return (
     <Container maxWidth="lg">
-      <Grid container direction="row" justifyContent="center" sx={{ mt: 2 }}>
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        spacing={3}
+        sx={{ mt: 2 }}
+      >
         <ListColumn title="Lists in the area" collection={summary.available} />
         <ListColumn title="In progress" collection={summary.processing} />
         <ListColumn
@@ -78,4 +79,4 @@ const Discover = () => {
   );
 };
 
-export default Discover;
+export default CharityDashboard;

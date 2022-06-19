@@ -51,8 +51,8 @@ const CharitySignup = () => {
   return (
     <Container disableGutters>
       <Container maxWidth="xs">
-        <h2>Register a FoodBank</h2>
-        <p>Create a FoodBank account.</p>
+        <h2>Register a food bank</h2>
+        <p>Create a food bank account.</p>
 
         <form>
           <TextField

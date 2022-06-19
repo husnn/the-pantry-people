@@ -3,8 +3,6 @@ import CardContent from '@mui/material/CardContent';
 
 import Chip from '@mui/material/Chip';
 import { ListDTO } from '@tpp/shared';
-import { useEffect, useState } from 'react';
-import { getOwnLists } from '../modules/api/list';
 
 const ListHistory = ({ lists }: { lists: ListDTO[] }) => {
   return (
