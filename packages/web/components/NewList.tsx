@@ -9,7 +9,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Checkbox from '@mui/material/Checkbox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import { SetStateAction, useEffect, useState } from 'react';
+import { SetStateAction, useCallback, useEffect, useState } from 'react';
 import { Item } from '@tpp/shared';
 import { createList } from '../modules/api/list';
 import { getInventory } from '../modules/api/inventory';
@@ -25,11 +25,10 @@ const NewList = () => {
     getInventory().then(setInventory);
   }, []);
 
-  const handleChange = (_event: any, value: SetStateAction<Item[]>) =>
+  const handleChange = (_event: object, value: SetStateAction<Item[]>) =>
     setList(value);
-  const handleSubmit = () => {
-    createList(list);
-  };
+
+  const handleSubmit = useCallback(() => createList(list), [list]);
 
   return (
     <Card variant="outlined" sx={{ minWidth: 275, my: 5 }}>
@@ -54,9 +53,9 @@ const NewList = () => {
             id="checkboxes-tags-demo"
             options={inventory}
             disableCloseOnSelect
-            getOptionLabel={(option) => option.label!!}
+            getOptionLabel={(option) => option.label}
             renderOption={(props, option, { selected }) => (
-              <li {...props} key={option.id}>
+              <li {...props}>
                 <Checkbox
                   icon={icon}
                   checkedIcon={checkedIcon}

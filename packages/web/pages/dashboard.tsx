@@ -35,7 +35,6 @@ const Dashboard = () => {
                 direction="column"
                 alignItems="center"
                 justifyContent="center"
-                // style={{ minHeight: '10vh' }}
               >
                 <CardContent>
                   <Typography
