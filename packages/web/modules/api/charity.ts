@@ -1,4 +1,9 @@
-import { SignupCharityRequest, SignupCharityResponse } from '@tpp/shared';
+import {
+  GetSummaryForCharityRequest,
+  GetSummaryForCharityResponse,
+  SignupCharityRequest,
+  SignupCharityResponse
+} from '@tpp/shared';
 import { ApiClient } from '../http';
 
 export const signupCharity = (
@@ -17,4 +22,14 @@ export const signupCharity = (
       name,
       postcode
     }
+  });
+
+export const getSummaryForCharity = () =>
+  ApiClient().request<
+    GetSummaryForCharityResponse,
+    GetSummaryForCharityRequest
+  >({
+    method: 'GET',
+    endpoint: '/charities/summary',
+    authentication: 'required'
   });
