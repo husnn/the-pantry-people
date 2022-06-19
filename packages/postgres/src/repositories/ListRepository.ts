@@ -1,5 +1,5 @@
 import { List, ListRepository as IListRepository } from '@tpp/core';
-import { ID } from '@tpp/shared';
+import { ID, ListState } from '@tpp/shared';
 import { Point } from 'geojson';
 import ListSchema from '../schemas/ListSchema';
 import Repository from './Repository';
@@ -12,10 +12,10 @@ export class ListRepository
     super(ListSchema);
   }
   async update(item: Partial<List> & { id: ID }): Promise<List> {
-    return this.db.save(item).then((i) => {
+    return this.db.save(item).then(() => {
       return this.db.findOne({
         where: { id: item.id },
-        relations: ['beneficiary']
+        relations: ['beneficiary', 'items']
       });
     });
   }
@@ -25,6 +25,7 @@ export class ListRepository
       .createQueryBuilder('list')
       .leftJoinAndSelect('list.items', 'items')
       .where(`ST_Covers(list.area, ST_GeomFromGeoJSON(:point))`)
+      .andWhere('list.status = :state', { state: ListState.CREATED })
       .setParameter('point', JSON.stringify(point))
       .getMany();
   }
@@ -42,7 +43,9 @@ export class ListRepository
     return this.db
       .createQueryBuilder('list')
       .leftJoinAndSelect('list.items', 'items')
+      .leftJoinAndSelect('list.charity', 'charity')
       .where('list.beneficiary_id = :userId', { userId })
+      .orderBy('list.id', 'DESC')
       .getMany();
   }
 }

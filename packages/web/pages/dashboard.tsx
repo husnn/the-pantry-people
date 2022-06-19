@@ -9,42 +9,45 @@ import {
 import useAuthentication from '../modules/auth/useAuthentication';
 import NewList from '../components/NewList';
 import ListHistory from '../components/ListHistory';
+import { ListDTO } from '@tpp/shared';
+import { useEffect, useState } from 'react';
+import { getOwnLists } from '../modules/api/list';
 
 const Dashboard = () => {
   useAuthentication(true);
 
-  return (
-    <Container disableGutters maxWidth="md">
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={3}>
-          <Grid item xs>
-            <NewList></NewList>
-          </Grid>
+  const [lists, setLists] = useState<ListDTO[]>([]);
 
+  useEffect(() => {
+    getOwnLists().then((res) => setLists(res.lists));
+  }, []);
+
+  return (
+    <Container
+      maxWidth="md"
+      sx={{ flexGrow: 1, mt: 5, display: 'flex', justifyContent: 'center' }}
+    >
+      <Grid container spacing={2} maxWidth="sm">
+        <Grid item xs>
+          <NewList onCreate={(list) => setLists([list, ...lists])} />
+        </Grid>
+
+        {lists.length > 0 && (
           <Grid item xs>
-            <Card variant="outlined" sx={{ minWidth: 275, my: 5 }}>
-              <Grid
-                container
-                spacing={0}
-                direction="column"
-                alignItems="center"
-                justifyContent="center"
+            <Card variant="outlined" sx={{ p: 4, mb: 2 }}>
+              <Typography
+                sx={{ fontSize: 20, mx: 10, mb: 2 }}
+                color="text.secondary"
+                align="center"
+                gutterBottom
               >
-                <CardContent>
-                  <Typography
-                    sx={{ fontSize: 20, mx: 10, mb: 2 }}
-                    color="text.secondary"
-                    gutterBottom
-                  >
-                    Your List History
-                  </Typography>
-                  <ListHistory />
-                </CardContent>
-              </Grid>
+                Your List History
+              </Typography>
+              <ListHistory lists={lists} />
             </Card>
           </Grid>
-        </Grid>
-      </Box>
+        )}
+      </Grid>
     </Container>
   );
 };

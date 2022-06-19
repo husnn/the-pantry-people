@@ -2,61 +2,108 @@ import {
   Box,
   Button,
   Card,
+  CardActionArea,
   CardContent,
   List,
   ListItem,
   Modal,
   Typography
 } from '@mui/material';
-import { ID, Item } from '@tpp/shared';
-import { useState } from 'react';
-import { getSummaryForCharity } from '../modules/api/charity';
+import { AssignedListDTO, Item, ListDTO, ListState } from '@tpp/shared';
+import { useCallback, useState } from 'react';
+import { closeList, fulfillList, pickupList } from '../modules/api/list';
 
 type ListItemCardProps = {
-  items: Item[];
-  id: Number;
-};
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4
+  list: ListDTO | AssignedListDTO;
+  update: (list: AssignedListDTO) => void;
 };
 
-export const ListItemCard = ({ items, id }: ListItemCardProps) => {
+export const ListItemCard = ({ list, update }: ListItemCardProps) => {
   const [open, setOpen] = useState(false);
+
+  const name =
+    list.name || (list as AssignedListDTO).beneficiary?.firstName
+      ? `${(list as AssignedListDTO).beneficiary.firstName}'s List`
+      : `List #${list.id}`;
+
+  const pickup = useCallback(
+    () => pickupList(list.id).then((res) => update(res.list)),
+    [list, update]
+  );
+
+  const complete = useCallback(
+    () => fulfillList(list.id).then((res) => update(res.list)),
+    [list, update]
+  );
+
+  const close = useCallback(
+    () => closeList(list.id).then((res) => update(res.list)),
+    [list, update]
+  );
 
   return (
     <div>
-      <Button onClick={(e) => setOpen(true)}>
-        <Card variant="outlined" sx={{ minWidth: 275, my: 5 }}>
+      <Card sx={{ my: 1 }} onClick={() => setOpen(true)}>
+        <CardActionArea sx={{ p: 1 }}>
           <CardContent>
-            <p>List #{id}</p>
-            <p>{items.length} items</p>
-            <Button>Select</Button>
+            <h3>{name}</h3>
+            <p>{list.items?.length} items</p>
           </CardContent>
-        </Card>
-      </Button>
-      <Modal
-        open={open}
-        onClose={(e) => setOpen(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Requested Items
+        </CardActionArea>
+      </Card>
+      <Modal open={open} onClose={(e) => setOpen(false)}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            p: 4,
+            borderRadius: 4
+          }}
+        >
+          <h2 style={{ marginBottom: 2 }}>{name}</h2>
+          <Typography fontSize={14}>
+            Requested on{' '}
+            {new Date(list.dateCreated).toLocaleDateString('en-GB')}
           </Typography>
-          <List>
-            {items?.map((item: Item) => (
-              <ListItem>{item.label}</ListItem>
+          <List sx={{ mt: 1 }}>
+            {list.items?.map((item: Item) => (
+              <ListItem key={item.id}>{item.label}</ListItem>
             ))}
           </List>
+          <Box sx={{ width: 1, mt: 2 }}>
+            {list.status == ListState.CREATED && (
+              <Button
+                sx={{ width: 1, mt: 1 }}
+                variant="contained"
+                onClick={pickup}
+              >
+                Pick up
+              </Button>
+            )}
+            {list.status == ListState.PROCESSING && (
+              <Button
+                sx={{ width: 1, mt: 1 }}
+                variant="contained"
+                onClick={complete}
+              >
+                Ready for collection
+              </Button>
+            )}
+            {(list.status == ListState.FULFILLED ||
+              list.status == ListState.PARTLY_FULFILLED) && (
+              <Button
+                sx={{ width: 1, mt: 1 }}
+                variant="contained"
+                onClick={close}
+              >
+                Mark complete
+              </Button>
+            )}
+          </Box>
         </Box>
       </Modal>
     </div>

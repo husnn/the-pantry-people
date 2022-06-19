@@ -1,22 +1,14 @@
-import {
-  Button,
-  Container,
-  Grid,
-  Box,
-  CardContent,
-  Card,
-  Typography
-} from '@mui/material';
+import { Container, Grid, Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
 import useAuthentication from '../modules/auth/useAuthentication';
 import ListItemCard from '../components/ListItemCard';
 import { getSummaryForCharity } from '../modules/api/charity';
-import { ListDTO } from '@tpp/shared';
+import { CharitySummary, ListDTO, ListState } from '@tpp/shared';
 
 const Discover = () => {
   useAuthentication(true);
 
-  const [summary, setSummary] = useState<any>({
+  const [summary, setSummary] = useState<CharitySummary>({
     available: [],
     processing: [],
     completed: []
@@ -26,90 +18,62 @@ const Discover = () => {
     getSummaryForCharity().then(setSummary);
   }, []);
 
+  const removeFromList = (lists: ListDTO[], item: ListDTO): ListDTO[] => {
+    const index = lists.findIndex((i) => i.id == item.id);
+    if (index > -1) lists.splice(index, 1);
+    return lists;
+  };
+
+  useEffect(() => console.log(summary), [summary]);
+
+  const ListColumn = ({
+    title,
+    collection
+  }: {
+    title: string;
+    collection?: ListDTO[];
+  }) => {
+    return collection ? (
+      <Grid xs={12} md={3}>
+        <h3>{title}</h3>
+        <Stack>
+          {collection.map((list) => (
+            <ListItemCard
+              key={list.id}
+              list={list}
+              update={(list) => {
+                switch (list.status) {
+                  case ListState.PROCESSING:
+                    removeFromList(summary.available, list);
+                    summary.processing.push(list);
+                    break;
+                  case ListState.PARTLY_FULFILLED:
+                  case ListState.FULFILLED:
+                    removeFromList(summary.processing, list);
+                    summary.completed.push(list);
+                    break;
+                  case ListState.CLOSED:
+                    removeFromList(summary.completed, list);
+                }
+                setSummary({ ...summary });
+              }}
+            />
+          ))}
+        </Stack>
+      </Grid>
+    ) : null;
+  };
+
   return (
-    <Container disableGutters maxWidth="lg">
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={3} columns={3}>
-          <Grid item xs={1}>
-            <Card
-              variant="outlined"
-              sx={{ minWidth: 250, my: 5, minHeight: 300 }}
-            >
-              <Grid
-                container
-                spacing={0}
-                direction="column"
-                alignItems="center"
-              >
-                <CardContent>
-                  <Typography
-                    sx={{ fontSize: 20, mx: 10, mb: 2 }}
-                    color="text.secondary"
-                    gutterBottom
-                  >
-                    LISTS IN THE AREA
-                  </Typography>
-                  {summary?.available.map((list: ListDTO) => (
-                    <ListItemCard items={list.items} id={list.id} />
-                  ))}
-                </CardContent>
-              </Grid>
-            </Card>
-          </Grid>
-          <Grid item xs={1}>
-            <Card
-              variant="outlined"
-              sx={{ minWidth: 250, my: 5, minHeight: 300 }}
-            >
-              <Grid
-                container
-                spacing={0}
-                direction="column"
-                alignItems="center"
-              >
-                <CardContent>
-                  <Typography
-                    sx={{ fontSize: 20, mx: 10, mb: 2 }}
-                    color="text.secondary"
-                    gutterBottom
-                  >
-                    IN PROGRESS
-                  </Typography>
-                  {summary?.processing.map((list: ListDTO) => (
-                    <ListItemCard items={list.items} id={list.id} />
-                  ))}
-                </CardContent>
-              </Grid>
-            </Card>
-          </Grid>
-          <Grid item xs={1}>
-            <Card
-              variant="outlined"
-              sx={{ minWidth: 250, my: 5, minHeight: 300 }}
-            >
-              <Grid
-                container
-                spacing={0}
-                direction="column"
-                alignItems="center"
-              >
-                <CardContent>
-                  <Typography
-                    sx={{ fontSize: 20, mx: 10, mb: 2 }}
-                    color="text.secondary"
-                    gutterBottom
-                  >
-                    AWAITING COLLECTION
-                  </Typography>
-                  {summary?.completed.map((list: ListDTO) => (
-                    <ListItemCard items={list.items} id={list.id} />
-                  ))}
-                </CardContent>
-              </Grid>
-            </Card>
-          </Grid>
-        </Grid>
-      </Box>
+    <Container maxWidth="lg">
+      <Grid container direction="row" justifyContent="center" sx={{ mt: 2 }}>
+        <ListColumn title="Lists in the area" collection={summary.available} />
+        <ListColumn title="In progress" collection={summary.processing} />
+        <ListColumn
+          title="Awaiting collection"
+          collection={summary.completed}
+        />
+      </Grid>
     </Container>
   );
 };

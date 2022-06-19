@@ -7,6 +7,9 @@ const DefaultTheme = createTheme({
       contrastText: '#FFFFFF'
     }
   },
+  typography: {
+    fontSize: 14
+  },
   spacing: 8
 });
 

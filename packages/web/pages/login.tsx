@@ -77,11 +77,11 @@ const Login = () => {
           </Button>
         </form>
       </Container>
-      <Container maxWidth="xs">
-        <p>Don&apos;t have an account? Register below</p>
-        <Link href={signupUrl}>Register as a benificiary</Link>
+      <Container maxWidth="xs" sx={{ mt: 5 }}>
+        <p>Don&apos;t have an account?</p>
+        <Link href={signupUrl}>Register as a beneficiary</Link>
         <Box sx={{ m: 2 }} />
-        <Link href={charitySignupUrl}>Register as a FoodBank</Link>
+        <Link href={charitySignupUrl}>Register as a food bank</Link>
       </Container>
     </Container>
   );

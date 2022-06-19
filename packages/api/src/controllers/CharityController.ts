@@ -131,7 +131,7 @@ class CharityController {
       if (!charityId) throw new AuthorizationError();
 
       const result = await this.listService.listForCharity(charityId);
-      if (!result)
+      if (!result.success)
         throw new WrappedError(
           result.error,
           'Could not get lists for charity.'
@@ -140,9 +140,7 @@ class CharityController {
       const { available, processing, completed } = result.data;
 
       return new HttpResponse<GetSummaryForCharityResponse>(res, {
-        available,
-        processing,
-        completed
+        body: { available, processing, completed }
       });
     } catch (err) {
       next(err);
