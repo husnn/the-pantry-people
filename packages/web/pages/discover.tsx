@@ -8,9 +8,7 @@ import {
   Typography
 } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { signout } from '../modules/api/auth';
 import useAuthentication from '../modules/auth/useAuthentication';
-
 import ListItemCard from '../components/ListItemCard';
 import { getSummaryForCharity } from '../modules/api/charity';
 import { ListDTO } from '@tpp/shared';
@@ -30,10 +28,6 @@ const Discover = () => {
 
   return (
     <Container disableGutters maxWidth="lg">
-      <div>
-        <Button onClick={signout}>Signout</Button>
-      </div>
-
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={3} columns={3}>
           <Grid item xs={1}>
