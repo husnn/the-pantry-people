@@ -13,15 +13,19 @@ import Checkbox from '@mui/material/Checkbox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { useState } from 'react';
+import { ListItemDTO } from '@tpp/shared';
+import { createList } from '../modules/api/list';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 const NewList = () => {
-  const [list, setList] = useState<string[]>([]);
+  const [list, setList] = useState<ListItemDTO[]>([]);
   const handleChange = (_event: any, value: React.SetStateAction<any[]>) =>
     setList(value);
-  const handleSubmit = () => console.log(list);
+  const handleSubmit = () => {
+    createList(list);
+  };
 
   return (
     <Card variant="outlined" sx={{ minWidth: 275, my: 5 }}>
