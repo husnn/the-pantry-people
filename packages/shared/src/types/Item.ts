@@ -1,5 +1,5 @@
 export type Item = {
   id: number;
-  label?: string;
+  label: string;
   quantity?: number;
 };
