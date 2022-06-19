@@ -10,12 +10,20 @@ import { AxiosError } from 'axios';
 import { removeAuth } from '../auth/utils';
 import { ApiClient } from '../http';
 
-export const signup = (email: string, password: string, postcode: string) =>
+export const signup = (
+  firstName: string,
+  lastName: string,
+  email: string,
+  password: string,
+  postcode: string
+) =>
   ApiClient().request<SignupResponse, SignupRequest>({
     method: 'POST',
     endpoint: '/auth/signup',
     authentication: 'none',
     body: {
+      firstName,
+      lastName,
       email,
       password,
       postcode

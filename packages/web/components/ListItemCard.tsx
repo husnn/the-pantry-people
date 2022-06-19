@@ -51,7 +51,7 @@ export const ListItemCard = ({ list, update }: ListItemCardProps) => {
           </CardContent>
         </CardActionArea>
       </Card>
-      <Modal open={open} onClose={(e) => setOpen(false)}>
+      <Modal open={open} onClose={() => setOpen(false)}>
         <Box
           sx={{
             position: 'absolute',

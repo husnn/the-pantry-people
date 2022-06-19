@@ -75,7 +75,7 @@ const CharitySignup = () => {
           />
           <TextField
             type="name"
-            label="FoodBank Name"
+            label="Name of food bank"
             variant="outlined"
             margin="dense"
             value={name}
